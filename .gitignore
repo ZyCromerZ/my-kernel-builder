@@ -1,0 +1,10 @@
+Clang/*
+GCC64/*
+GCC32/*
+GCC64-zip/*
+GCC32-zip/*
+Kernel/*
+Anykernel/*
+Uploader/*
+Spectrum/*
+Kernel-Downloader/*
