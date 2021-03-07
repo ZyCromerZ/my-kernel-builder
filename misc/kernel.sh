@@ -1,16 +1,8 @@
 #! /bin/bash
-# MainPath="${pwd}"
-# ClangPath="${MainPath}/Clang"
-# MainGCCaPath="${MainPath}/GCC64"
-# MainGCCbPath="${MainPath}/GCC32"
-# MainZipGCCaPath="${MainPath}/GCC64-zip"
-# MainZipGCCbPath="${MainPath}/GCC32-zip"
-# KernelPath="${MainPath}/Kernel"
-# AnykernelPath="${MainPath}/Anykernel"
-# CustomUploader="N"
-# UploaderPath="${MainPath}/Uploader"
-# UseSpectrum="N"
-# SpectrumPath="${MainPath}/Spectrum"
+
+chmod +x ${MainPath}/misc/clang.sh
+chmod +x ${MainPath}/misc/gcc.sh
+chmod +x ${MainPath}/misc/bot.sh
 
 . ${MainPath}/misc/clang.sh
 . ${MainPath}/misc/gcc.sh
@@ -99,14 +91,15 @@ CompileClangKernel(){
     fi
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
-    if [[ ! -f $kernelDir/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>$branch</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
-    cp -af $kernelDir/out/arch/$ARCH/boot/Image.gz-dtb $AnykernelDir
-    KName=$(cat "$(pwd)/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )    
+    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    KName=$(cat "$(pwd)/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
+    CompilerStatus="- <code>${ClangType}</code>%0A- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
     MakeZip "$1"
 }
 
@@ -130,24 +123,28 @@ CompileGccKernel(){
     
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
-    if [[ ! -f $kernelDir/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>$branch</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
-    cp -af $kernelDir/out/arch/$ARCH/boot/Image.gz-dtb $AnykernelDir
-    KName=$(cat "$(pwd)/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )    
+    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    KName=$(cat "$(pwd)/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[GCC]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
+    CompilerStatus="- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
     MakeZip "$1"
+
 }
 
 CleanOut()
 {
+    cd "${KernelPath}"
+    git reset --hard "${HeadCommitId}"
     rm -rf "${KernelPath}/out"
 }
 
 MakeZip(){
-    cd $AnykernelDir
+    cd $AnyKernelPath
     if [ ! -z "$SpectrumFile" ] && [ "$UseSpectrum" == "Y" ];then
         cp -af $SpectrumPath/$SpectrumFile init.spectrum.rc && sed -i "s/persist.spectrum.kernel.*/persist.spectrum.kernel $KName/g" init.spectrum.rc
     fi
@@ -162,11 +159,13 @@ MakeZip(){
 }
 
 UploadKernel(){
-    MD5CHECK=$(md5sum "$KernelFiles" | cut -d' ' -f1)
+    MD5CHECK=$(md5sum "${KernelFiles}" | cut -d' ' -f1)
     SHA1CHECK=$(sha1sum "${KernelFiles}" | cut -d' ' -f1)
-    MSG="✅ <b>Build Success</b> %0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s) </code> %0A%0A<b>MD5 Checksum</b>%0A- <code>$MD5CHECK</code>%0A%0A<b>SHA1 Checksum</b>%0A- <code>$SHA1CHECK</code>%0A%0A<b>Zip Name</b> %0A- <code>$ZipName</code>"
+    MSG="✅ <b>Build Success</b> %0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s) </code> %0A%0A<b>MD5 Checksum</b>%0A- <code>$MD5CHECK</code>%0A%0A<b>SHA1 Checksum</b>%0A- <code>$SHA1CHECK</code>%0A%0A<br>Under Commit Id : Messgae</b>%0A- <code>${HeadCommitId}</code> : <code>${HeadCommitMsg}</code>%0A%0A<b>Compilers</b>%0A$CompilerStatus%0A%0A<b>Zip Name</b> %0A- <code>$ZipName</code>"
 
-    if [ "$CustomUploader" == "Y" ];then
+    [ ! -z "${DRONE_BRANCH}" ] && doOsdnUp="" && doSFUp=""
+
+    if [ "${CustomUploader}" == "Y" ];then
         chmod +x "${UploaderPath}/run.sh"
         . "${UploaderPath}/run.sh" "$KernelFiles" "$FolderUp" "$GetCBD" "$ExFolder"
         . ${MainPath}/misc/bot.sh "send_info" "$MSG" "$1"
@@ -181,5 +180,8 @@ UploadKernel(){
         cd ..
         rm -rf "$KDpath"
     fi
-
+    
+    # always remove compiled dtb and kernel zip
+    rm -rf "$KernelPath/out/arch/$ARCH/boot/Image.gz-dtb" "${KernelFiles}"
+    
 }

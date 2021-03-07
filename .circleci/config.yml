@@ -8,15 +8,14 @@ jobs:
           command: |
             git clone https://$githubKey@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git -b $CIRCLE_BRANCH $CIRCLE_BRANCH --depth=1
             cd $CIRCLE_BRANCH
-            bash main.sh
+            . main.sh
           no_output_timeout : 5h
       - run:
           command: |
-            echo "main path : $MainPath"
-            MainPath="$(pwd)/$CIRCLE_BRANCH"
-            [ -z "$branch" ] && branch="$(cat $MainPath/for/${CIRCLE_BRANCH}.sh | grep 'branch=' | tr '\r\n' ' ' | awk {'print $1}')" 
+            [ -z "$MainPath" ] && MainPath="$(pwd)/$CIRCLE_BRANCH"
+            [ -z "$branch" ] && branch="$(cat $MainPath/for/master.sh | grep 'branch=' | tr '="' ' '  | tr '\r\n' ' ' | awk {'print $2}')" 
             [ -z "$branch" ] && branch="$CIRCLE_BRANCH"
-            bash $MainPath/misc/bot.sh "send_info" "<b>❌ Build failed</b>%0ABranch : <b>$branch</b>%0A%0A- Sad Boy"
+            . $MainPath/misc/bot.sh "send_info" "<b>❌ Build failed</b>%0ABranch : <b>$branch</b>%0A%0A- Sad Boy"
           when: on_fail
 workflows:
   version: 2.1

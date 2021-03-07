@@ -8,7 +8,6 @@ TypeBuild="Stable"
 DEFFCONFIG="begonia_user_defconfig"
 GetBD=$(date +"%m%d")
 GetCBD=$(date +"%Y-%m-%d")
-TotalCores=$(nproc --all)
 TypeBuildTag="CFW"
 FolderUp="begonia"
 ExFolder=""
