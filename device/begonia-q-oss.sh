@@ -8,6 +8,6 @@ TypeBuild="Stable"
 DEFFCONFIG="begonia_user_defconfig"
 GetBD=$(date +"%m%d")
 GetCBD=$(date +"%Y-%m-%d")
-TypeBuildTag="NON-CFW"
+TypeBuildTag="[NON-CFW]"
 FolderUp="begonia"
 ExFolder=""
