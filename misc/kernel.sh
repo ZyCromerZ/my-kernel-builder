@@ -47,6 +47,7 @@ CloneKernel(){
 
 CompileClangKernel(){
     cd "${KernelPath}"
+    SendInfoLink
     BUILD_START=$(date +"%s")
     make    -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
     if [ ! -z "$LD_LIBRARY_PATH" ];then
@@ -104,6 +105,7 @@ CompileClangKernel(){
 
 CompileGccKernel(){
     cd "${KernelPath}"
+    SendInfoLink
     BUILD_START=$(date +"%s")
     make    -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
     MAKE+=(
@@ -183,4 +185,20 @@ UploadKernel(){
     # always remove compiled dtb and kernel zip
     rm -rf "$KernelPath/out/arch/$ARCH/boot/Image.gz-dtb" "${KernelFiles}"
     
+}
+
+SendInfoLink(){
+    if [ "$FirstSendInfoLink" == "N" ];then
+        if [ ! -z "${CIRCLE_BRANCH}" ];then
+            BuildNumber="${CIRCLE_BUILD_NUM}"
+            GenLink="${CIRCLE_BUILD_URL}"
+        fi
+        if [ ! -z "${DRONE_BRANCH}" ];then
+            BuildNumber="${DRONE_BUILD_NUMBER}"
+            GenLink="https://cloud.drone.io/${DRONE_REPO}/${DRONE_BUILD_NUMBER}/1/2"
+        fi
+        MSG="🔨 New Kernel On The Way%0A%0ADevice: <code>${DEVICE}</code>%0A%0ACodename: <code>${CODENAME}</code>%0A%0ABranch: <code>${branch}</code>%0A%0ABuild Date: <code>${GetCBD}</code>%0A%0ABuild Number: <code>${BuildNumber}</code>%0A%0AHost Core Count : <code>${TotalCores} cores</code>%0A%0AKernel Version: <code>${KVer}</code>%0A%0ABuild Link Progress : ${GenLink}"
+        . $MainPath/misc/bot.sh "send_info" "$MSG"
+        FirstSendInfoLink="Y"
+    fi
 }
