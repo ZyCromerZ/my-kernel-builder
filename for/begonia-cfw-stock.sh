@@ -2,8 +2,8 @@
 branch="20200907/root-upstream-mod"
 
 IncludeFiles "${MainPath}/device/begonia-cfw.sh"
-IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 CustomUploader="Y"
+IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 FolderUp="begonia-cfw-Stock"
 TypeBuildTag="[CFW]"
 

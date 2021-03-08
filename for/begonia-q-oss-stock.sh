@@ -2,8 +2,8 @@
 branch="q-oss-upstream-mod"
 
 IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
-IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 CustomUploader="Y"
+IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 FolderUp="begonia-memeui-Stock"
 TypeBuildTag="[NON-CFW]"
 
