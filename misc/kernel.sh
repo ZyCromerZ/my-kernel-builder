@@ -30,13 +30,18 @@ fi
 
 CloneKernel(){
     if [[ ! -d "${KernelPath}" ]];then
-        git clone "${KernelRepo}" -b "${branch}" "${KernelPath}" "$1"
+        if [ ! -z "$1" ];then
+            git clone "${KernelRepo}" -b "${branch}" "${KernelPath}" "$1"
+        else
+            git clone "${KernelRepo}" -b "${branch}" "${KernelPath}"
+        fi
         cd "${KernelPath}"
     else
         cd "${KernelPath}"
         git fetch origin "${branch}"
         git checkout FETCH_HEAD
-        git checkout -b ${branch}
+        git branch -D "${branch}"
+        git checkout -b "${branch}"
     fi
     getInfo "clone kernel done"
     KVer=$(make kernelversion)

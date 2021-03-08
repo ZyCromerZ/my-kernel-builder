@@ -15,16 +15,18 @@ AnyKernelBranch="master-begonia"
 FirstSendInfoLink="N"
 
 pullALmk(){
-    cd $KernelPath
+    [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
     git reset --hard $HeadCommitId
+    git fetch origin 20201110/main-ALMK4
     git pull --no-commit origin 20201110/main-ALMK4
     git commit -s -m 'Pull branch 20201110/main-ALMK4'
     TypeBuild="[CFW][ALMK]"
 }
 
 pullSlmk(){
-    cd $KernelPath
+    [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
     git reset --hard $HeadCommitId
+    git fetch origin 20201110/main-SLMK4
     git pull --no-commit origin 20201110/main-SLMK4
     git commit -s -m 'Pull branch 20201110/main-SLMK4'
     TypeBuild="[CFW][SLMK]"

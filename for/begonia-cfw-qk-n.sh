@@ -16,7 +16,7 @@ doSFUp=$FolderUp
 PostLinkNow="Y"
 KernelDownloader="Y"
 
-CloneKernel "--depth=1"
+CloneKernel
 CloneGccten && CloneGugelClang
 CompileClangKernel && pullALmk
 CompileClangKernel && pullSlmk

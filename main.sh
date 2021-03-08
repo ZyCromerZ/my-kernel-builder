@@ -32,7 +32,15 @@ check=""
 
 IncludeFiles(){
     chmod +x "$1"
-    . "$1" "$2" "$3"
+    if [ ! -z "$4" ];then
+        . "$1" "$2" "$3" "$4"
+    elif [ ! -z "$3" ];then
+        . "$1" "$2" "$3"
+    elif [ ! -z "$2" ];then
+        . "$1" "$2"
+    else
+        . "$1"
+    fi
 }
 
 IncludeFiles "$MainPath/for/${branch}.sh"
