@@ -1,11 +1,9 @@
 #! /bin/bash
 
-chmod +x ${MainPath}/misc/clang.sh
-chmod +x ${MainPath}/misc/gcc.sh
 chmod +x ${MainPath}/misc/bot.sh
 
-. ${MainPath}/misc/clang.sh
-. ${MainPath}/misc/gcc.sh
+IncludeFiles ${MainPath}/misc/clang.sh
+IncludeFiles ${MainPath}/misc/gcc.sh
 
 getInfo() {
     echo -e "\e[1;32m$*\e[0m"
@@ -21,8 +19,9 @@ if [ ! -z "$1" ];then
         git clone https://$GIT_SECRET@github.com/$GIT_USERNAME/gdrive_uploader -b master "${UploaderPath}"  --depth=1 
     fi
     if [ "$UseSpectrum" == "Y" ];then
-        git clone git clone https://github.com/ZyCromerZ/Spectrum -b master "${SpectrumPath}"  --depth=1 
+        git clone https://github.com/ZyCromerZ/Spectrum -b master "${SpectrumPath}"  --depth=1 
     fi
+    git clone https://github.com/ZyCromerZ/Anykernel3 -b "${AnyKernelBranch}" "${AnyKernelPath}"
 else    
     getInfoErr "KernelRepo is missing :/"
     [ ! -z "${DRONE_BRANCH}" ] && . $MainPath/misc/bot.sh "send_info" "<b>❌ Build failed</b>%0ABranch : <b>$branch</b%0A%0ASad Boy"
@@ -39,11 +38,11 @@ CloneKernel(){
         git checkout FETCH_HEAD
         git checkout -b ${branch}
     fi
-
+    getInfo "clone kernel done"
     KVer=$(make kernelversion)
-    HeadCommitId=$(git log --pretty=format:'%h' -n1)
-    HeadCommitMsg=$(git log --pretty=format:'%s' -n1)
-    GetKernelName="$(cat "./arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/"//g' | sed 's/CONFIG_LOCALVERSION=//g')"
+    HeadCommitId="$(git log --pretty=format:'%h' -n1)"
+    HeadCommitMsg="$(git log --pretty=format:'%s' -n1)"
+    getInfo "get some main info done"
 }
 
 CompileClangKernel(){
@@ -97,7 +96,7 @@ CompileClangKernel(){
         exit 1
     fi
     cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
-    KName=$(cat "$(pwd)/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
+    KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${ClangType}</code>%0A- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
     MakeZip "$1"
@@ -129,7 +128,7 @@ CompileGccKernel(){
         exit 1
     fi
     cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
-    KName=$(cat "$(pwd)/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
+    KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[GCC]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
     MakeZip "$1"

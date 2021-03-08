@@ -30,4 +30,9 @@ check=$(ls /usr/lib/x86_64-linux-gnu | grep libz3.so -m1)
 if [ ! -z "$check" ]; then if [ "$check" != "libz3.so.4.8" ]; then cp -af /usr/lib/x86_64-linux-gnu/$check /usr/lib/x86_64-linux-gnu/libz3.so.4.8; fi; fi
 check=""
 
-chmod +x $MainPath/for/${branch}.sh && . "$MainPath/for/${branch}.sh"
+IncludeFiles(){
+    chmod +x "$1"
+    . "$1" "$2" "$3"
+}
+
+IncludeFiles "$MainPath/for/${branch}.sh"

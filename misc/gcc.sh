@@ -1,7 +1,7 @@
 #! /bin/bash
 
 CloneGCCOld(){
-    cd "${MainPath}"
+    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     GCCaPath="${MainGCCaPath}"
     if [ ! -d "$GCCaPath" ];then
         git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9 -b android-10.0.0_r47 $GCCaPath --depth=1
@@ -13,7 +13,7 @@ CloneGCCOld(){
         git checkout -b android-10.0.0_r47
     fi
     for64=aarch64-linux-android
-    cd "${MainPath}"
+    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     GCCbPath="${MainGCCbPath}"
     if [ ! -d "$GCCbPath" ];then
         git clone https://github.com/ZyCromerZ/arm-linux-androideabi-4.9 -b android-10.0.0_r47 $GCCbPath --depth=1
@@ -28,8 +28,8 @@ CloneGCCOld(){
     GetGccVersion
 }
 
-CloneGcc10(){
-    cd "${MainPath}"
+CloneGccten(){
+    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     GCCaPath="$MainZipGCCaPath"
     GCCbPath="$MainZipGCCbPath"
     mkdir $GCCaPath
@@ -54,15 +54,15 @@ GetGccVersion()
     if [ -e $GCCaPath/bin/$for32-gcc ];then
         gcc32Type="$($GCCaPath/bin/$for32-gcc --version | head -n 1)"
     else
-        cd $GCCaPath
+        cd ${GCCaPath}
         gcc32Type=$(git log --pretty=format:'%h: %s' -n1)
-        cd $mainDir
+        cd ${MainPath}
     fi
     if [ -e $GCCbPath/bin/$for64-gcc ];then
         gcc64Type="$($GCCbPath/bin/$for64-gcc --version | head -n 1)"
     else
-        cd $GCCbPath
+        cd ${GCCbPath}
         gcc64Type=$(git log --pretty=format:'%h: %s' -n1)
-        cd $mainDir
+        cd ${MainPath}
     fi
 }

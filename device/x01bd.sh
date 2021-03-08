@@ -11,3 +11,4 @@ GetCBD=$(date +"%Y-%m-%d")
 TypeBuildTag=""
 FolderUp="xobod-private"
 ExFolder=""
+AnyKernelBranch="master"

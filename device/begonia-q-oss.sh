@@ -11,3 +11,4 @@ GetCBD=$(date +"%Y-%m-%d")
 TypeBuildTag="[NON-CFW]"
 FolderUp="begonia"
 ExFolder=""
+AnyKernelBranch="master-begonia"
