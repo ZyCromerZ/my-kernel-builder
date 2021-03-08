@@ -162,7 +162,7 @@ MakeZip(){
 UploadKernel(){
     MD5CHECK=$(md5sum "${KernelFiles}" | cut -d' ' -f1)
     SHA1CHECK=$(sha1sum "${KernelFiles}" | cut -d' ' -f1)
-    MSG="✅ <b>Build Success</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s) </code>%0A%0A<b>MD5 Checksum</b>%0A- <code>$MD5CHECK</code>%0A%0A<b>SHA1 Checksum</b>%0A- <code>$SHA1CHECK</code>%0A%0A<b>Under Commit Id : Messgae</b>%0A- <code>${HeadCommitId}</code> : <code>${HeadCommitMsg}</code>%0A%0A<b>Compilers</b>%0A$CompilerStatus%0A%0A<b>Zip Name</b>%0A- <code>$ZipName</code>"
+    MSG="✅ <b>Build Success</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s) </code>%0A%0A<b>MD5 Checksum</b>%0A- <code>$MD5CHECK</code>%0A%0A<b>SHA1 Checksum</b>%0A- <code>$SHA1CHECK</code>%0A%0A<b>Under Commit Id : Message</b>%0A- <code>${HeadCommitId}</code> : <code>${HeadCommitMsg}</code>%0A%0A<b>Compilers</b>%0A$CompilerStatus%0A%0A<b>Zip Name</b>%0A- <code>$ZipName</code>"
 
     [ ! -z "${DRONE_BRANCH}" ] && doOsdnUp="" && doSFUp=""
 
