@@ -1,5 +1,5 @@
 #! /bin/bash
-branch="20201110/qk-n"
+KernelBranch="20201110/qk-n"
 
 IncludeFiles "${MainPath}/device/begonia-cfw.sh"
 CustomUploader="Y"
@@ -11,8 +11,8 @@ TypeBuildTag="[CFW][Stock-LMK]"
 
 # misc
 spectrumFile="bego-on.rc"
-doOsdnUp=$FolderUp
-doSFUp=$FolderUp
+doOsdnUp="${FolderUp}"
+doSFUp="${FolderUp}"
 PostLinkNow="Y"
 KernelDownloader="Y"
 

@@ -1,5 +1,5 @@
 #! /bin/bash
-branch="20210205/qk-n"
+KernelBranch="20210205/qk-n"
 
 IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"

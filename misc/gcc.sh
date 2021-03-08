@@ -51,17 +51,17 @@ CloneGccten(){
 
 GetGccVersion()
 {
-    if [ -e $GCCaPath/bin/$for64-gcc ];then
-        gcc32Type="$($GCCaPath/bin/$for64-gcc --version | head -n 1)"
+    if [ -e $GCCbPath/bin/$for32-gcc ];then
+        gcc32Type="$($GCCbPath/bin/$for32-gcc --version | head -n 1)"
     else
-        cd ${GCCaPath}
+        cd ${GCCbPath}
         gcc32Type=$(git log --pretty=format:'%h: %s' -n1)
         cd ${MainPath}
     fi
-    if [ -e $GCCbPath/bin/$for32-gcc ];then
-        gcc64Type="$($GCCbPath/bin/$for32-gcc --version | head -n 1)"
+    if [ -e $GCCaPath/bin/$for64-gcc ];then
+        gcc64Type="$($GCCaPath/bin/$for64-gcc --version | head -n 1)"
     else
-        cd ${GCCbPath}
+        cd ${GCCaPath}
         gcc64Type=$(git log --pretty=format:'%h: %s' -n1)
         cd ${MainPath}
     fi

@@ -24,24 +24,27 @@ if [ ! -z "$1" ];then
     git clone https://github.com/ZyCromerZ/Anykernel3 -b "${AnyKernelBranch}" "${AnyKernelPath}"
 else    
     getInfoErr "KernelRepo is missing :/"
-    [ ! -z "${DRONE_BRANCH}" ] && . $MainPath/misc/bot.sh "send_info" "<b>❌ Build failed</b>%0ABranch : <b>$branch</b%0A%0ASad Boy"
+    [ ! -z "${DRONE_BRANCH}" ] && . $MainPath/misc/bot.sh "send_info" "<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b%0A%0ASad Boy"
     exit 1
 fi
 
 CloneKernel(){
     if [[ ! -d "${KernelPath}" ]];then
         if [ ! -z "$1" ];then
-            git clone "${KernelRepo}" -b "${branch}" "${KernelPath}" "$1"
+            git clone "${KernelRepo}" -b "${KernelBranch}" "${KernelPath}" "$1"
         else
-            git clone "${KernelRepo}" -b "${branch}" "${KernelPath}"
+            git clone "${KernelRepo}" -b "${KernelBranch}" "${KernelPath}"
         fi
         cd "${KernelPath}"
     else
         cd "${KernelPath}"
-        git fetch origin "${branch}"
-        git checkout FETCH_HEAD
-        git branch -D "${branch}"
-        git checkout -b "${branch}"
+        if [ ! -z "${KernelBranch}" ];then
+            getInfo "clone balik?"
+            git fetch origin "${KernelBranch}"
+            git checkout FETCH_HEAD
+            git branch -D "${KernelBranch}"
+            git checkout -b "${KernelBranch}"
+        fi
     fi
     getInfo "clone kernel done"
     KVer=$(make kernelversion)
@@ -97,7 +100,7 @@ CompileClangKernel(){
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
     if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
-        MSG="<b>❌ Build failed</b>%0ABranch : <b>$branch</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
+        MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
@@ -105,7 +108,11 @@ CompileClangKernel(){
     KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${ClangType}</code>%0A- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
-    MakeZip "$1"
+    if [ ! -z "$1" ];then
+        MakeZip "$1"
+    else
+        MakeZip
+    fi
 }
 
 CompileGccKernel(){
@@ -130,7 +137,7 @@ CompileGccKernel(){
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
     if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
-        MSG="<b>❌ Build failed</b>%0ABranch : <b>$branch</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
+        MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
@@ -138,7 +145,11 @@ CompileGccKernel(){
     KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[GCC]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
-    MakeZip "$1"
+    if [ ! -z "$1" ];then
+        MakeZip "$1"
+    else
+        MakeZip
+    fi
 
 }
 
@@ -155,12 +166,18 @@ MakeZip(){
         cp -af $SpectrumPath/$SpectrumFile init.spectrum.rc && sed -i "s/persist.spectrum.kernel.*/persist.spectrum.kernel $KName/g" init.spectrum.rc
     fi
     cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by ZyCromerZ/g" anykernel.sh
-
+    
+    # update zip name :v
+    ZipName=${ZipName/"--"/"-"}
     zip -r9 "$ZipName" * -x .git README.md anykernel-real.sh .gitignore *.zip
 
     KernelFiles="$(pwd)/$ZipName"
 
-    UploadKernel "$1"
+    if [ ! -z "$1" ];then
+        UploadKernel "$1"
+    else
+        UploadKernel "$1"
+    fi
     
 }
 
@@ -175,21 +192,33 @@ UploadKernel(){
         cd $UploaderPath
         chmod +x "${UploaderPath}/run.sh"
         . "${UploaderPath}/run.sh" "$KernelFiles" "$FolderUp" "$GetCBD" "$ExFolder"
-        . ${MainPath}/misc/bot.sh "send_info" "$MSG" "$1"
+        if [ ! -z "$1" ];then
+            UploadKernel "$1"
+            . ${MainPath}/misc/bot.sh "send_info" "$MSG" "$1"
+        else
+            . ${MainPath}/misc/bot.sh "send_info" "$MSG"
+        fi
     else
-        . ${MainPath}/misc/bot.sh "send_files" "$KernelFiles" "$MSG" "$1"
+        if [ ! -z "$1" ];then
+            . ${MainPath}/misc/bot.sh "send_files" "$KernelFiles" "$MSG" "$1"
+        else
+            . ${MainPath}/misc/bot.sh "send_files" "$KernelFiles" "$MSG"
+        fi
     fi
     if [ "$KernelDownloader" == "Y" ];then
         git clone https://$GIT_SECRETB@github.com/$GIT_USERNAME/kernel-download-generator "$KDpath"
         cd "$KDpath"
-        chmod +x update.sh
-        . update.sh "$KDType"
-        cd ..
+        chmod +x "${KDpath}/update.sh"
+        . "${KDpath}/update.sh" "${KDType}"
+        cd "$MainPath"
         rm -rf "$KDpath"
     fi
     
     # always remove compiled dtb and kernel zip
-    rm -rf "$KernelPath/out/arch/$ARCH/boot/Image.gz-dtb" "${KernelFiles}"
+    rm -rf "$KernelPath/out/arch/$ARCH/boot/Image.gz-dtb"
+    getInfo "remove kernel dtb files done"
+    rm -rf "${KernelFiles}"
+    getInfo "remove kernel zip files done"
     
 }
 
@@ -203,7 +232,7 @@ SendInfoLink(){
             BuildNumber="${DRONE_BUILD_NUMBER}"
             GenLink="https://cloud.drone.io/${DRONE_REPO}/${DRONE_BUILD_NUMBER}/1/2"
         fi
-        MSG="🔨 New Kernel On The Way%0A%0ADevice: <code>${DEVICE}</code>%0A%0ACodename: <code>${CODENAME}</code>%0A%0ABranch: <code>${branch}</code>%0A%0ABuild Date: <code>${GetCBD}</code>%0A%0ABuild Number: <code>${BuildNumber}</code>%0A%0AHost Core Count : <code>${TotalCores} cores</code>%0A%0AKernel Version: <code>${KVer}</code>%0A%0ABuild Link Progress : ${GenLink}"
+        MSG="🔨 New Kernel On The Way%0A%0ADevice: <code>${DEVICE}</code>%0A%0ACodename: <code>${CODENAME}</code>%0A%0ABranch: <code>${KernelBranch}</code>%0A%0ABuild Date: <code>${GetCBD}</code>%0A%0ABuild Number: <code>${BuildNumber}</code>%0A%0AHost Core Count : <code>${TotalCores} cores</code>%0A%0AKernel Version: <code>${KVer}</code>%0A%0ABuild Link Progress : ${GenLink}"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         FirstSendInfoLink="Y"
     fi

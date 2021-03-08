@@ -1,5 +1,5 @@
 #! /bin/bash
-# branch="20210205/neutrino-3"
+# KernelBranch="20210205/neutrino-3"
 
 # IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 # CustomUploader="Y"
@@ -9,6 +9,7 @@
 # CloneKernel "--depth=1"
 # CloneGccten
 # CloneGugelClang
+# CloneOldDTCClang
 # CompileClangKernel && CleanOut
 # CompileGccKernel
 

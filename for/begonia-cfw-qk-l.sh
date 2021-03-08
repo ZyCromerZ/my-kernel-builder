@@ -1,5 +1,5 @@
 #! /bin/bash
-branch="20201110/qk-l"
+KernelBranch="20201110/qk-l"
 
 IncludeFiles "${MainPath}/device/begonia-cfw.sh"
 CustomUploader="Y"

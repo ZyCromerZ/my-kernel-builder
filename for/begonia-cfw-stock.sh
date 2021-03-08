@@ -1,5 +1,5 @@
 #! /bin/bash
-branch="20200907/root-upstream-mod"
+KernelBranch="20200907/root-upstream-mod"
 
 IncludeFiles "${MainPath}/device/begonia-cfw.sh"
 CustomUploader="Y"
