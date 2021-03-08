@@ -158,6 +158,8 @@ CleanOut()
     cd "${KernelPath}"
     git reset --hard "${HeadCommitId}"
     rm -rf "${KernelPath}/out"
+    ccache -c
+    ccache -C
 }
 
 MakeZip(){

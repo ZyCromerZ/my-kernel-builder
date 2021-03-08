@@ -20,7 +20,7 @@ KDType=""
 
 export DEBIAN_FRONTEND=noninteractive
 export KBUILD_BUILD_USER="ZyCromerZ"
-[ ! -z "${CIRCLE_BRANCH}" ] && branch="${CIRCLE_BRANCH}" && export KBUILD_BUILD_HOST="Circleci-server" && TotalCores="4"
+[ ! -z "${CIRCLE_BRANCH}" ] && branch="${CIRCLE_BRANCH}" && export KBUILD_BUILD_HOST="Circleci-server" && TotalCores="$(nproc --all)"
 [ ! -z "${DRONE_BRANCH}" ] && branch="${DRONE_BRANCH}" && export KBUILD_BUILD_HOST="Droneci-server" && TotalCores="$(nproc --all)"
 
 # just fix for dtc clang
