@@ -1,13 +1,13 @@
 #! /bin/bash
-KernelBranch="20201110/qk-n"
+KernelBranch="20210205/qk-l"
 
-IncludeFiles "${MainPath}/device/begonia-cfw.sh"
+IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"
 UseSpectrum="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
-FolderUp="begonia-cfw-qk"
-ExFolder="N"
-TypeBuildTag="[CFW][Stock-LMK]"
+FolderUp="begonia-memeui-qk"
+ExFolder="L"
+TypeBuildTag="[NON-CFW][Stock-LMK]"
 
 # misc
 spectrumFile="bego-on.rc"
@@ -16,7 +16,7 @@ doSFUp=$FolderUp
 PostLinkNow="Y"
 
 CloneKernel
-CloneGccten && CloneGugelClang
+CloneGccten && CloneOldDTCClang
 CompileClangKernel && pullALmk
 CompileClangKernel && pullSlmk
 CompileClangKernel && CleanOut

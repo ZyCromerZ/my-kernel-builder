@@ -14,21 +14,9 @@ spectrumFile="bego-on.rc"
 doOsdnUp=$FolderUp
 doSFUp=$FolderUp
 PostLinkNow="Y"
-KernelDownloader="Y"
 
 CloneKernel
 CloneGccten && CloneGugelClang
 CompileClangKernel && pullALmk
 CompileClangKernel && pullSlmk
 CompileClangKernel && CleanOut
-
-CloneOldDTCClang
-TypeBuildTag="[NON-CFW][Stock-LMK]"
-CompileClangKernel && pullALmk
-CompileClangKernel && pullSlmk
-CompileClangKernel && CleanOut
-
-TypeBuildTag="[NON-CFW][Stock-LMK]"
-CompileGccKernel && pullALmk
-CompileGccKernel && pullSlmk
-CompileGccKernel && CleanOut

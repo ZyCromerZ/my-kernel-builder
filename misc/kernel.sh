@@ -207,7 +207,7 @@ UploadKernel(){
             . ${MainPath}/misc/bot.sh "send_files" "$KernelFiles" "$MSG"
         fi
     fi
-    if [ "$KernelDownloader" == "Y" ];then
+    if [ "$KernelDownloader" == "Y" ] && [ ! -z "${KDType}" ];then
         git clone https://$GIT_SECRETB@github.com/$GIT_USERNAME/kernel-download-generator "$KDpath"
         cd "$KDpath"
         chmod +x "${KDpath}/update.sh"

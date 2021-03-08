@@ -6,7 +6,7 @@ CloneGCCOld(){
     if [ ! -d "$GCCaPath" ];then
         git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9 -b android-10.0.0_r47 $GCCaPath --depth=1
     else
-        cd "$GCCaPath"
+        cd "${GCCaPath}"
         git fetch https://github.com/ZyCromerZ/aarch64-linux-android-4.9 -b android-10.0.0_r47 --depth=1
         git checkout FETCH_HEAD
         [[ ! -z "$(git branch | grep android-10.0.0_r47)" ]] && git branch -D android-10.0.0_r47
@@ -18,7 +18,7 @@ CloneGCCOld(){
     if [ ! -d "$GCCbPath" ];then
         git clone https://github.com/ZyCromerZ/arm-linux-androideabi-4.9 -b android-10.0.0_r47 $GCCbPath --depth=1
     else
-        cd "$GCCbPath"
+        cd "${GCCbPath}"
         git fetch https://github.com/ZyCromerZ/arm-linux-androideabi-4.9 -b android-10.0.0_r47 --depth=1
         git checkout FETCH_HEAD
         [[ ! -z "$(git branch | grep android-10.0.0_r47)" ]] && git branch -D android-10.0.0_r47
@@ -32,8 +32,8 @@ CloneGccten(){
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     GCCaPath="$MainZipGCCaPath"
     GCCbPath="$MainZipGCCbPath"
-    mkdir $GCCaPath
-    mkdir $GCCbPath
+    mkdir "${GCCaPath}"
+    mkdir "${GCCbPath}"
     if [ ! -e "${MainPath}/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz" ];then
         wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz
         tar -xf gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C $GCCbPath
