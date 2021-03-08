@@ -13,3 +13,19 @@ FolderUp="begonia"
 ExFolder=""
 AnyKernelBranch="master-begonia"
 FirstSendInfoLink="N"
+
+pullALmk(){
+    cd $KernelPath
+    git reset --hard $HeadCommitId
+    git pull --no-commit origin 20201110/main-ALMK4
+    git commit -s -m 'Pull branch 20201110/main-ALMK4'
+    TypeBuild="[CFW][ALMK]"
+}
+
+pullSlmk(){
+    cd $KernelPath
+    git reset --hard $HeadCommitId
+    git pull --no-commit origin 20201110/main-SLMK4
+    git commit -s -m 'Pull branch 20201110/main-SLMK4'
+    TypeBuild="[CFW][SLMK]"
+}
