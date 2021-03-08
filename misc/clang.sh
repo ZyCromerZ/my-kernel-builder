@@ -8,7 +8,7 @@ CloneGugelClang(){
         cd "${ClangPath}"
         git fetch https://github.com/ZyCromerZ/google-clang 9.0.4-r353983d --depth=1
         git checkout FETCH_HEAD
-        git branch -D 9.0.4-r353983d
+        [[ ! -z "$(git branch | grep 9.0.4-r353983d)" ]] && git branch -D 9.0.4-r353983d
         git checkout -b 9.0.4-r353983d
     fi
     TypeBuilder="CLANG"
@@ -23,7 +23,7 @@ CloneOldDTCClang(){
         cd "${ClangPath}"
         git fetch https://github.com/nibaji/DragonTC-8.0 master --depth=1
         git checkout FETCH_HEAD
-        git branch -D master
+        [[ ! -z "$(git branch | grep master)" ]] && git branch -D master
         git checkout -b master
     fi
     TypeBuilder="DTC-OLD"
@@ -38,7 +38,7 @@ CloneDTCClang(){
         cd "${ClangPath}"
         git fetch https://github.com/NusantaraDevs/DragonTC 10.0 --depth=1
         git checkout FETCH_HEAD
-        git branch -D 10.0
+        [[ ! -z "$(git branch | grep 10.0)" ]] && git branch -D 10.0
         git checkout -b 10.0
     fi
     TypeBuilder="DTC"

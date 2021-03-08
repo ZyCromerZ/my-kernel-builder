@@ -9,7 +9,7 @@ CloneGCCOld(){
         cd "$GCCaPath"
         git fetch https://github.com/ZyCromerZ/aarch64-linux-android-4.9 -b android-10.0.0_r47 --depth=1
         git checkout FETCH_HEAD
-        git branch -D android-10.0.0_r47
+        [[ ! -z "$(git branch | grep android-10.0.0_r47)" ]] && git branch -D android-10.0.0_r47
         git checkout -b android-10.0.0_r47
     fi
     for64=aarch64-linux-android
@@ -21,7 +21,7 @@ CloneGCCOld(){
         cd "$GCCbPath"
         git fetch https://github.com/ZyCromerZ/arm-linux-androideabi-4.9 -b android-10.0.0_r47 --depth=1
         git checkout FETCH_HEAD
-        git branch -D android-10.0.0_r47
+        [[ ! -z "$(git branch | grep android-10.0.0_r47)" ]] && git branch -D android-10.0.0_r47
         git checkout -b android-10.0.0_r47
     fi
     for32=arm-linux-androideabi
