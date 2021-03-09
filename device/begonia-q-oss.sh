@@ -31,3 +31,10 @@ pullSlmk(){
     git commit -s -m 'Pull branch 20210205/main-SLMK2'
     TypeBuildTag="[NON-CFW][SLMK]"
 }
+
+PullLto(){
+    [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
+    git fetch origin 20210205/main-LTO
+    git pull --no-commit origin 20210205/main-LTO
+    git commit -s -m 'Pull branch 20210205/main-LTO'
+}
