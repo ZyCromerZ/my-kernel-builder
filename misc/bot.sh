@@ -3,8 +3,6 @@
 if [ ! -z "$1" ];then
     if [ "$1" == "send_info" ];then
         msg="$2"
-        msg=${msg/"="/"%3D"}
-        msg=${msg/"/"/"%2F"}
         msg=${msg/"&"/"%26"}
         if [ ! -z "$3" ];then
             curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="$3" \
@@ -20,8 +18,6 @@ if [ ! -z "$1" ];then
     fi
     if [ "$1" == "send_files" ];then
         msg="$3"
-        msg=${msg/"="/"%3D"}
-        msg=${msg/"/"/"%2F"}
         msg=${msg/"&"/"%26"}
         if [ ! -z "$4" ];then
             curl --progress-bar -F document=@"$2" "https://api.telegram.org/bot$BOT_TOKEN/sendDocument" \
