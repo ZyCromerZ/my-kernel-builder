@@ -5,11 +5,17 @@
 # CustomUploader="Y"
 # IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 # FolderUp="keqing-drive"
+# TypeBuildTag="[NON-CFW][TEST]"
 
-# CloneKernel "--depth=1"
+# CloneKernel
 # CloneGccten
+# CompileGccKernel && CleanOut
 # CloneGugelClang
-# CloneOldDTCClang
-# CompileClangKernel && CleanOut
-# CompileGccKernel
+# pullSlmk && PullLtoSlmk
+# TypeBuildTag="[NON-CFW][PRIVATE-LTO-SLMK]"
+# CompileClangLTOKernel && CleanOut
 
+# CloneOldDTCClang
+# pullSlmk && PullLtoSlmk
+# TypeBuildTag="[NON-CFW][PRIVATE-LTO-SLMK]"
+# CompileClangLTOKernel && CleanOut

@@ -38,3 +38,17 @@ PullLto(){
     git pull --no-commit origin 20210205/main-LTO
     git commit -s -m 'Pull branch 20210205/main-LTO'
 }
+
+PullLtoALmk(){
+    [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
+    git fetch origin 20210205/main-LTO
+    git pull --no-commit origin 20210205/main-ALMK2-LTO
+    git commit -s -m 'Pull branch 20210205/main-ALMK2-LTO'
+}
+
+PullLtoSlmk(){
+    [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
+    git fetch origin 20210205/main-LTO
+    git pull --no-commit origin 20210205/main-SLMK2-LTO
+    git commit -s -m 'Pull branch 20210205/main-SLMK2-LTO'
+}
