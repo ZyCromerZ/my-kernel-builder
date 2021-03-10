@@ -8,10 +8,11 @@ FolderUp="keqing-drive"
 TypeBuildTag="[NON-CFW][PRIVATE][SLMK]"
 
 CloneKernel
-CloneGccten
+# CloneGccten
+CloneCompiledGcc
 # CompileGccKernel && CleanOut
 CloneGugelClang
-CompileClangKernel && CleanOut
+CompileClangKernel && CleanOut  
 # pullSlmk && PullLtoSlmk
 # TypeBuildTag="[NON-CFW][PRIVATE-LTO-SLMK]"
 # CompileClangLTOKernel && CleanOut
