@@ -1,35 +1,23 @@
 #! /bin/bash
 
 CloneCompiledGcc(){
-    if [[ ! -z "$1" ]];then
-        RepoBranch="$1"
-    else
-        RepoBranch="10.2.1-20210310"
-    fi
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
-    GCCaPath="${MainGCCaPath}"
-    if [ ! -d "$GCCaPath" ];then
-        git clone https://github.com/ZyCromerZ/aarch64-linux-gnu -b "${RepoBranch}" $GCCaPath --depth=1
-    else
-        cd "${GCCaPath}"
-        git fetch https://github.com/ZyCromerZ/aarch64-linux-gnu -b "${RepoBranch}" --depth=1
-        git checkout FETCH_HEAD
-        [[ ! -z "$(git branch | grep ${RepoBranch})" ]] && git branch -D "${RepoBranch}"
-        git checkout -b ${RepoBranch}
+    GCCaPath="$MainZipGCCaPath"
+    GCCbPath="$MainZipGCCbPath"
+    mkdir "${GCCaPath}"
+    mkdir "${GCCbPath}"
+    if [ ! -e "${MainPath}/arm-linux-gnueabi-10.x-gnu-20210310.tar.gz" ];then
+        wget https://delicate-queen-d0bf.zyc-files.workers.dev/4:/arm-linux-gnueabi-10.x-gnu-20210310.tar.gz
+        tar -xf arm-linux-gnueabi-10.x-gnu-20210310.tar.gz -C $GCCbPath
     fi
-    for64=aarch64-linux-gnu
-    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
-    GCCbPath="${MainGCCbPath}"
-    if [ ! -d "$GCCbPath" ];then
-        git clone https://github.com/ZyCromerZ/arm-linux-gnueabi -b "${RepoBranch}" $GCCbPath --depth=1
-    else
-        cd "${GCCbPath}"
-        git fetch https://github.com/ZyCromerZ/arm-linux-gnueabi -b "${RepoBranch}" --depth=1
-        git checkout FETCH_HEAD
-        [[ ! -z "$(git branch | grep ${RepoBranch})" ]] && git branch -D "${RepoBranch}"
-        git checkout -b ${RepoBranch}
-    fi
+    GCCbPath="${GCCbPath}/arm-linux-gnueabi"
     for32=arm-linux-gnueabi
+    if [ ! -e "${MainPath}/aarch64-linux-gnu-10.x-gnu-20210310.tar.gz" ];then
+        wget https://delicate-queen-d0bf.zyc-files.workers.dev/4:/aarch64-linux-gnu-10.x-gnu-20210310.tar.gz
+        tar -xf aarch64-linux-gnu-10.x-gnu-20210310.tar.gz -C $GCCaPath
+    fi
+    GCCaPath="${GCCaPath}/aarch64-linux-gnu"
+    for64=aarch64-linux-gnu
     GetGccVersion
 }
 
