@@ -1,5 +1,38 @@
 #! /bin/bash
 
+CloneCompiledGcc(){
+    if [[ ! -z "$1" ]];then
+        RepoBranch="$1"
+    else
+        RepoBranch="10.2.1-20210310"
+    fi
+    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
+    GCCaPath="${MainGCCaPath}"
+    if [ ! -d "$GCCaPath" ];then
+        git clone https://github.com/ZyCromerZ/aarch64-linux-gnu -b "${RepoBranch}" $GCCaPath --depth=1
+    else
+        cd "${GCCaPath}"
+        git fetch https://github.com/ZyCromerZ/aarch64-linux-gnu -b "${RepoBranch}" --depth=1
+        git checkout FETCH_HEAD
+        [[ ! -z "$(git branch | grep ${RepoBranch})" ]] && git branch -D "${RepoBranch}"
+        git checkout -b ${RepoBranch}
+    fi
+    for64=aarch64-linux-gnu
+    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
+    GCCbPath="${MainGCCbPath}"
+    if [ ! -d "$GCCbPath" ];then
+        git clone https://github.com/ZyCromerZ/arm-linux-gnueabi -b "${RepoBranch}" $GCCbPath --depth=1
+    else
+        cd "${GCCbPath}"
+        git fetch https://github.com/ZyCromerZ/arm-linux-gnueabi -b "${RepoBranch}" --depth=1
+        git checkout FETCH_HEAD
+        [[ ! -z "$(git branch | grep ${RepoBranch})" ]] && git branch -D "${RepoBranch}"
+        git checkout -b ${RepoBranch}
+    fi
+    for32=arm-linux-gnueabi
+    GetGccVersion
+}
+
 CloneGCCOld(){
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     GCCaPath="${MainGCCaPath}"
