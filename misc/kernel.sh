@@ -58,12 +58,12 @@ CompileClangKernel(){
     SendInfoLink
     BUILD_START=$(date +"%s")
     make    -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
-    if [ ! -z "$LD_LIBRARY_PATH" ];then
+    if [ -d "${ClangPath}/lib64" ];then
         MAKE+=(
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=$ClangPath/bin:$GCCaPath/bin:$GCCbPath/bin:/usr/bin:${PATH} \
-                LD_LIBRARY_PATH="$ClangPath/lib64:${LD_LIBRARY_PATH}" \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
                 CC="ccache clang" \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -72,8 +72,8 @@ CompileClangKernel(){
         make    -j${TotalCores}  O=out \
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=$ClangPath/bin:$GCCaPath/bin:$GCCbPath/bin:/usr/bin:${PATH} \
-                LD_LIBRARY_PATH="$ClangPath/lib64:${LD_LIBRARY_PATH}" \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
                 CC="ccache clang" \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -82,7 +82,7 @@ CompileClangKernel(){
         MAKE+=(
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=$ClangPath/bin:$GCCaPath/bin:$GCCbPath/bin:/usr/bin:${PATH} \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
                 CC="ccache clang" \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -91,7 +91,7 @@ CompileClangKernel(){
         make    -j${TotalCores}  O=out \
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=$ClangPath/bin:$GCCaPath/bin:$GCCbPath/bin:/usr/bin:${PATH} \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
                 CC="ccache clang" \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -120,12 +120,12 @@ CompileClangLTOKernel(){
     SendInfoLink
     BUILD_START=$(date +"%s")
     make    -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
-    if [ ! -z "$LD_LIBRARY_PATH" ];then
+    if [ -d "${ClangPath}/lib64" ];then
         MAKE+=(
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=$ClangPath/bin:$GCCaPath/bin:$GCCbPath/bin:/usr/bin:${PATH} \
-                LD_LIBRARY_PATH="$ClangPath/lib64:${LD_LIBRARY_PATH}" \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
                 CC="ccache clang" \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -145,8 +145,8 @@ CompileClangLTOKernel(){
         make    -j${TotalCores}  O=out \
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=$ClangPath/bin:$GCCaPath/bin:$GCCbPath/bin:/usr/bin:${PATH} \
-                LD_LIBRARY_PATH="$ClangPath/lib64:${LD_LIBRARY_PATH}" \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
                 CC="ccache clang" \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -166,7 +166,7 @@ CompileClangLTOKernel(){
         MAKE+=(
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=$ClangPath/bin:$GCCaPath/bin:$GCCbPath/bin:/usr/bin:${PATH} \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
                 CC="ccache clang" \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -186,7 +186,7 @@ CompileClangLTOKernel(){
         make    -j${TotalCores}  O=out \
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=$ClangPath/bin:$GCCaPath/bin:$GCCbPath/bin:/usr/bin:${PATH} \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
                 CC="ccache clang" \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -225,18 +225,18 @@ CompileGccKernel(){
     cd "${KernelPath}"
     SendInfoLink
     BUILD_START=$(date +"%s")
-    make    -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
+    make    -j${TotalCores}  O=out ARCH="${ARCH}" "${DEFFCONFIG}"
     MAKE+=(
         ARCH=$ARCH \
         SUBARCH=$ARCH \
-        PATH=$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
+        PATH=${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
         CROSS_COMPILE=$for64- \
         CROSS_COMPILE_ARM32=$for32-
     )
     make    -j${TotalCores}  O=out \
             ARCH=$ARCH \
             SUBARCH=$ARCH \
-            PATH=$GCCaPath/bin:$GCCbPath/bin:/usr/bin:${PATH} \
+            PATH=${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
             CROSS_COMPILE=$for64- \
             CROSS_COMPILE_ARM32=$for32-
     
@@ -248,7 +248,7 @@ CompileGccKernel(){
         exit 1
     fi
     cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
-    KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
+    KName=$(cat "${KernelPath}/arch/${ARCH}/configs/${DEFFCONFIG}" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$GetBD][GCC]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
     if [ ! -z "$1" ];then
