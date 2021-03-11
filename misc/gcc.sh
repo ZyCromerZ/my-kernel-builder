@@ -4,18 +4,19 @@ CloneCompiledGcc(){
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     GCCaPath="$MainZipGCCaPath"
     GCCbPath="$MainZipGCCbPath"
+    rm -rf ${GCCaPath}/aarch64-linux-gnu ${GCCbPath}/arm-linux-gnueabi
     mkdir "${GCCaPath}"
     mkdir "${GCCbPath}"
-    if [ ! -e "${MainPath}/arm-linux-gnueabi-10.x-gnu-20210310.tar.gz" ];then
-        wget https://gcc-drive.zyc-files.workers.dev/0:/arm-linux-gnueabi-10.x-gnu-20210310.tar.gz
-        tar -xf arm-linux-gnueabi-10.x-gnu-20210310.tar.gz -C $GCCbPath
+    if [ ! -e "${MainPath}/arm-linux-gnueabi-10.x-gnu-20210311.tar.gz" ];then
+        wget https://gcc-drive.zyc-files.workers.dev/0:/arm-linux-gnueabi-10.x-gnu-20210311.tar.gz
     fi
+    tar -xf arm-linux-gnueabi-10.x-gnu-20210311.tar.gz -C $GCCbPath
     GCCbPath="${GCCbPath}/arm-linux-gnueabi"
     for32=arm-linux-gnueabi
-    if [ ! -e "${MainPath}/aarch64-linux-gnu-10.x-gnu-20210310.tar.gz" ];then
-        wget https://gcc-drive.zyc-files.workers.dev/0:/aarch64-linux-gnu-10.x-gnu-20210310.tar.gz
-        tar -xf aarch64-linux-gnu-10.x-gnu-20210310.tar.gz -C $GCCaPath
+    if [ ! -e "${MainPath}/aarch64-linux-gnu-10.x-gnu-20210311.tar.gz" ];then
+        wget https://gcc-drive.zyc-files.workers.dev/0:/aarch64-linux-gnu-10.x-gnu-20210311.tar.gz
     fi
+    tar -xf aarch64-linux-gnu-10.x-gnu-20210311.tar.gz -C $GCCaPath
     GCCaPath="${GCCaPath}/aarch64-linux-gnu"
     for64=aarch64-linux-gnu
     GetGccVersion
@@ -25,18 +26,19 @@ CloneCompiledGccEleven(){
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     GCCaPath="$MainZipGCCaPath"
     GCCbPath="$MainZipGCCbPath"
+    rm -rf ${GCCaPath}/aarch64-linux-gnu ${GCCbPath}/arm-linux-gnueabi
     mkdir "${GCCaPath}"
     mkdir "${GCCbPath}"
     if [ ! -e "${MainPath}/arm-linux-gnueabi-11.x-gnu-20210311.tar.gz" ];then
         wget https://gcc-drive.zyc-files.workers.dev/0:/arm-linux-gnueabi-11.x-gnu-20210311.tar.gz
-        tar -xf arm-linux-gnueabi-11.x-gnu-20210311.tar.gz -C $GCCbPath
     fi
+    tar -xf arm-linux-gnueabi-11.x-gnu-20210311.tar.gz -C $GCCbPath
     GCCbPath="${GCCbPath}/arm-linux-gnueabi"
     for32=arm-linux-gnueabi
     if [ ! -e "${MainPath}/aarch64-linux-gnu-11.x-gnu-20210311.tar.gz" ];then
         wget https://gcc-drive.zyc-files.workers.dev/0:/aarch64-linux-gnu-11.x-gnu-20210311.tar.gz
-        tar -xf aarch64-linux-gnu-11.x-gnu-20210311.tar.gz -C $GCCaPath
     fi
+    tar -xf aarch64-linux-gnu-11.x-gnu-20210311.tar.gz -C $GCCaPath
     GCCaPath="${GCCaPath}/aarch64-linux-gnu"
     for64=aarch64-linux-gnu
     GetGccVersion
