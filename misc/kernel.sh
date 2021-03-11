@@ -40,7 +40,11 @@ CloneKernel(){
         cd "${KernelPath}"
         if [ ! -z "${KernelBranch}" ];then
             getInfo "clone balik?"
-            git fetch origin "${KernelBranch}"
+            if [ ! -z "$1" ];then
+                git fetch origin "${KernelBranch}" "$1"
+            else
+                git fetch origin "${KernelBranch}"
+            fi
             git checkout FETCH_HEAD
             git branch -D "${KernelBranch}"
             git checkout -b "${KernelBranch}"
