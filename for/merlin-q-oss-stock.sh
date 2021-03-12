@@ -7,7 +7,7 @@ IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GI
 FolderUp="merlin-stock"
 doSFUp=$FolderUp
 doOsdnUp=$FolderUp
-TypeBuildTag="[STOCK]"
+TypeBuildTag="[STOCK][ThinLTO]"
 
 CloneKernel "--depth=1"
 CloneCompiledGccEleven

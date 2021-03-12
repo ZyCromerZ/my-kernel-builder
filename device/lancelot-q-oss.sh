@@ -1,17 +1,17 @@
 #! /bin/bash
 
-DEVICE="Redmi Note 9"
-CODENAME="Merlin"
+DEVICE="Redmi 9"
+CODENAME="Lancelot"
 SaveChatID="-1001301538740"
 ARCH="arm64"
 TypeBuild="Stable"
-DEFFCONFIG="begonia_user_defconfig"
+DEFFCONFIG="lancelot_defconfig"
 GetBD=$(date +"%m%d")
 GetCBD=$(date +"%Y-%m-%d")
-TypeBuildTag="[NON-CFW]"
-FolderUp="begonia"
+TypeBuildTag=""
+FolderUp="letoy-stock"
 ExFolder=""
-AnyKernelBranch="master-begonia"
+AnyKernelBranch="master-lancelot"
 FirstSendInfoLink="N"
 
 pullALmk(){
