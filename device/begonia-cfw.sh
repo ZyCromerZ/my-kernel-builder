@@ -31,3 +31,27 @@ pullSlmk(){
     git commit -s -m 'Pull branch 20201110/main-SLMK4'
     TypeBuildTag="[CFW][SLMK]"
 }
+
+PullLto(){
+    [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
+    git fetch origin 20201110/main-LTO
+    git pull --no-commit origin 20201110/main-LTO
+    git commit -s -m 'Pull branch 20201110/main-LTO'
+    TypeBuildTag="[CFW][Stock-LMK][Thin-LTO]"
+}
+
+PullLtoALmk(){
+    [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
+    git fetch origin 20201110/main-LTO
+    git pull --no-commit origin 20201110/main-ALMK4-LTO
+    git commit -s -m 'Pull branch 20201110/main-ALMK4-LTO'
+    TypeBuildTag="[CFW][ALMK][Thin-LTO]"
+}
+
+PullLtoSlmk(){
+    [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
+    git fetch origin 20201110/main-LTO
+    git pull --no-commit origin 20201110/main-SLMK4-LTO
+    git commit -s -m 'Pull branch 20201110/main-SLMK4-LTO'
+    TypeBuildTag="[CFW][SLMK][Thin-LTO]"
+}
