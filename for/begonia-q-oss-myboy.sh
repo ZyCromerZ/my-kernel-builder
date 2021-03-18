@@ -13,6 +13,7 @@ CloneCompiledGccEleven
 CloneOldDTCClang
 PullLtoSlmk
 CompileClangKernel && CleanOut
+pullSlmk
 CompileGccKernel && CleanOut
 
 # cleanup stuff after done
