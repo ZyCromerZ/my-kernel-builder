@@ -29,16 +29,16 @@ CloneCompiledGccEleven(){
     rm -rf ${GCCaPath}/aarch64-zyc-linux-gnu ${GCCbPath}/arm-zyc-linux-gnueabi
     mkdir "${GCCaPath}"
     mkdir "${GCCbPath}"
-    if [ ! -e "${MainPath}/arm-zyc-linux-gnueabi-11.x-gnu-20210326.tar.gz" ];then
-        wget https://gcc-drive.zyc-files.workers.dev/1:/arm-zyc-linux-gnueabi-11.x-gnu-20210326.tar.gz
+    if [ ! -e "${MainPath}/arm-zyc-linux-gnueabi-11.x-gnu-20210403.tar.gz" ];then
+        wget https://gcc-drive.zyc-files.workers.dev/1:/arm-zyc-linux-gnueabi-11.x-gnu-20210403.tar.gz
     fi
-    tar -xf arm-zyc-linux-gnueabi-11.x-gnu-20210326.tar.gz -C $GCCbPath
+    tar -xf arm-zyc-linux-gnueabi-11.x-gnu-20210403.tar.gz -C $GCCbPath
     GCCbPath="${GCCbPath}/arm-zyc-linux-gnueabi"
     for32=arm-zyc-linux-gnueabi
-    if [ ! -e "${MainPath}/aarch64-zyc-linux-gnu-11.x-gnu-20210326.tar.gz" ];then
-        wget https://gcc-drive.zyc-files.workers.dev/1:/aarch64-zyc-linux-gnu-11.x-gnu-20210326.tar.gz
+    if [ ! -e "${MainPath}/aarch64-zyc-linux-gnu-11.x-gnu-20210403.tar.gz" ];then
+        wget https://gcc-drive.zyc-files.workers.dev/1:/aarch64-zyc-linux-gnu-11.x-gnu-20210403.tar.gz
     fi
-    tar -xf aarch64-zyc-linux-gnu-11.x-gnu-20210326.tar.gz -C $GCCaPath
+    tar -xf aarch64-zyc-linux-gnu-11.x-gnu-20210403.tar.gz -C $GCCaPath
     GCCaPath="${GCCaPath}/aarch64-zyc-linux-gnu"
     for64=aarch64-zyc-linux-gnu
     GetGccVersion
