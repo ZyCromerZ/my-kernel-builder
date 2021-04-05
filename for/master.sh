@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="eleven-upstream-mod2"
+KernelBranch="20210405/main"
 
 IncludeFiles "${MainPath}/device/lancelot-q-oss.sh"
 CustomUploader="Y"
@@ -9,7 +9,8 @@ TypeBuildTag="[STOCK]"
 
 CloneKernel "--depth=1"
 CloneCompiledGccEleven
-CompileGccKernel
+CloneGugelClang
+CompileClangKernel
 
 # cleanup stuff after done
 cd "${MainPath}"
