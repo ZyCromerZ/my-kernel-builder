@@ -15,7 +15,7 @@ doSFUp=$FolderUp
 PostLinkNow="Y"
 
 CloneKernel
-CloneGccten && CloneGugelClang
+CloneCompiledGccEleven && CloneGugelClang
 CompileClangKernel && pullALmk
 CompileClangKernel && pullSlmk
 CompileClangKernel && CleanOut
