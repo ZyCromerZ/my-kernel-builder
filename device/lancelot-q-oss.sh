@@ -20,7 +20,7 @@ pullALmk(){
     git fetch origin 20210405/main-ALMK
     git pull --no-commit origin 20210405/main-ALMK
     git commit -s -m 'Pull branch 20210405/main-ALMK'
-    TypeBuildTag="[NON-CFW][ALMK]"
+    TypeBuildTag="[ALMK]"
 }
 
 pullSlmk(){
@@ -29,7 +29,7 @@ pullSlmk(){
     git fetch origin 20210405/main-SLMK
     git pull --no-commit origin 20210405/main-SLMK
     git commit -s -m 'Pull branch 20210405/main-SLMK'
-    TypeBuildTag="[NON-CFW][SLMK]"
+    TypeBuildTag="[SLMK]"
 }
 
 PullLto(){
@@ -37,7 +37,7 @@ PullLto(){
     git fetch origin 20210405/main-LTO
     git pull --no-commit origin 20210405/main-LTO
     git commit -s -m 'Pull branch 20210405/main-LTO'
-    TypeBuildTag="[NON-CFW][Stock-LMK][Thin-LTO]"
+    TypeBuildTag="[Stock-LMK][Thin-LTO]"
 }
 
 PullLtoALmk(){
@@ -45,7 +45,7 @@ PullLtoALmk(){
     git fetch origin 20210405/main-LTO
     git pull --no-commit origin 20210405/main-ALMK-LTO
     git commit -s -m 'Pull branch 20210405/main-ALMK-LTO'
-    TypeBuildTag="[NON-CFW][ALMK][Thin-LTO]"
+    TypeBuildTag="[ALMK][Thin-LTO]"
 }
 
 PullLtoSlmk(){
@@ -53,5 +53,5 @@ PullLtoSlmk(){
     git fetch origin 20210405/main-LTO
     git pull --no-commit origin 20210405/main-SLMK-LTO
     git commit -s -m 'Pull branch 20210405/main-SLMK-LTO'
-    TypeBuildTag="[NON-CFW][SLMK][Thin-LTO]"
+    TypeBuildTag="[SLMK][Thin-LTO]"
 }
