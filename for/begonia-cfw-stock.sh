@@ -10,7 +10,7 @@ TypeBuildTag="[CFW]"
 # misc
 doOsdnUp=$FolderUp
 doSFUp=$FolderUp
-PostLinkNow="Y"
+ 
 KernelDownloader="Y"
 KDType="stock-clang"
 

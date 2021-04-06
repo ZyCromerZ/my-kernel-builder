@@ -10,7 +10,7 @@ TypeBuildTag="[NON-CFW]"
 # misc
 doOsdnUp=$FolderUp
 doSFUp=$FolderUp
-PostLinkNow="Y"
+ 
 KernelDownloader="Y"
 KDType="stock-memeui-clang"
 

@@ -13,7 +13,7 @@ TypeBuildTag="[NON-CFW][Stock-LMK]"
 spectrumFile="bego-on.rc"
 doOsdnUp=$FolderUp
 doSFUp=$FolderUp
-PostLinkNow="Y"
+ 
 
 CloneKernel
 CloneCompiledGccEleven && CloneOldDTCClang

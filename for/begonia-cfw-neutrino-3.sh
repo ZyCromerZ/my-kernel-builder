@@ -12,7 +12,7 @@ TypeBuildTag="[CFW][Stock-LMK]"
 # misc
 spectrumFile="bego-on-p.rc"
 doSFUp=$FolderUp
-PostLinkNow="Y"
+ 
 
 CloneKernel
 CloneCompiledGccEleven && CloneGugelClang
