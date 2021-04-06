@@ -16,7 +16,7 @@ getInfoErr() {
 if [ ! -z "$1" ];then
     KernelRepo="$1"
     if [ "$CustomUploader" == "Y" ];then
-        git clone https://$GIT_SECRET@github.com/$GIT_USERNAME/gdrive_uploader -b master "${UploaderPath}"  --depth=1 
+        git clone https://${GIT_SECRET}@github.com/${GIT_USERNAME}/uploader-kernel-private -b master "${UploaderPath}"  --depth=1
     fi
     if [ "$UseSpectrum" == "Y" ];then
         git clone https://github.com/ZyCromerZ/Spectrum -b master "${SpectrumPath}"  --depth=1 
