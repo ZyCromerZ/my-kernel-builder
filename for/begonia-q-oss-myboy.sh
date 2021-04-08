@@ -10,7 +10,7 @@ TypeBuildTag="[NON-CFW][Stock-LMK]"
 CloneKernel
 CloneCompiledGccEleven
 # CloneGugelClang
-CloneOldDTCClang
+CloneGugelClang
 PullLtoSlmk
 CompileClangKernel && CleanOut
 
