@@ -1,12 +1,12 @@
 #! /bin/bash
-KernelBranch="20210205/neutrino-1"
+KernelBranch="20210205/neutrino-3"
 
 IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"
 UseSpectrum="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 FolderUp="begonia-memeui-neutrino"
-ExFolder="LX"
+ExFolder="LZ"
 TypeBuildTag="[NON-CFW][Stock-LMK]"
 
 # misc
@@ -15,10 +15,11 @@ doSFUp=$FolderUp
  
 
 CloneKernel
-CloneCompiledGccEleven && CloneGugelClang && PullLto
-CompileClangKernel && PullLtoALmk
-CompileClangKernel && PullLtoSlmk
-CompileClangKernel && CleanOut
+CloneCompiledGccEleven
+TypeBuildTag="[NON-CFW][Stock-LMK]"
+CompileGccKernel && pullALmk
+CompileGccKernel && pullSlmk
+CompileGccKernel && CleanOut
 
 
 # cleanup stuff after done

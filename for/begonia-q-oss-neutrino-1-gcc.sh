@@ -15,10 +15,11 @@ doSFUp=$FolderUp
  
 
 CloneKernel
-CloneCompiledGccEleven && CloneGugelClang && PullLto
-CompileClangKernel && PullLtoALmk
-CompileClangKernel && PullLtoSlmk
-CompileClangKernel && CleanOut
+CloneCompiledGccEleven
+TypeBuildTag="[NON-CFW][Stock-LMK]"
+CompileGccKernel && pullALmk
+CompileGccKernel && pullSlmk
+CompileGccKernel && CleanOut
 
 
 # cleanup stuff after done
