@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="20210304/q/main"
+KernelBranch="20210412/q/main"
 
 IncludeFiles "${MainPath}/device/x01bd.sh"
 CustomUploader="Y"
