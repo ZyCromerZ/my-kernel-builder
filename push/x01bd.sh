@@ -4,7 +4,7 @@ git checkout master
 if [ ! -z "$2" ];then
     ListBranch="$2"
 else
-    ListBranch="x01bd-main-q"
+    ListBranch="x01bd-main-q x01bd-main-r"
 fi
 
 for Branch in $ListBranch
