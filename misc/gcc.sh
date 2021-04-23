@@ -93,6 +93,28 @@ CloneGccten(){
     GetGccVersion
 }
 
+CloneCompiledGccTwelve(){
+    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
+    GCCaPath="$MainZipGCCaPath"
+    GCCbPath="$MainZipGCCbPath"
+    rm -rf ${GCCaPath}/aarch64-zyc-linux-gnu ${GCCbPath}/arm-zyc-linux-gnueabi
+    mkdir "${GCCaPath}"
+    mkdir "${GCCbPath}"
+    if [ ! -e "${MainPath}/arm-zyc-linux-gnueabi-12.x-gnu-20210423.tar.gz" ];then
+        wget  https://github.com/ZyCromerZ/compiled-gcc/releases/download/varm-zyc-linux-gnueabi-12.x-gnu-20210423/arm-zyc-linux-gnueabi-12.x-gnu-20210423.tar.gz
+    fi
+    tar -xf arm-zyc-linux-gnueabi-12.x-gnu-20210423.tar.gz -C $GCCbPath
+    GCCbPath="${GCCbPath}/arm-zyc-linux-gnueabi"
+    for32=arm-zyc-linux-gnueabi
+    if [ ! -e "${MainPath}/aarch64-zyc-linux-gnu-12.x-gnu-20210423.tar.gz" ];then
+        wget https://github.com/ZyCromerZ/compiled-gcc/releases/download/vaarch64-zyc-linux-gnu-12.x-gnu-20210423/aarch64-zyc-linux-gnu-12.x-gnu-20210423.tar.gz
+    fi
+    tar -xf aarch64-zyc-linux-gnu-12.x-gnu-20210423.tar.gz -C $GCCaPath
+    GCCaPath="${GCCaPath}/aarch64-zyc-linux-gnu"
+    for64=aarch64-zyc-linux-gnu
+    GetGccVersion
+}
+
 GetGccVersion()
 {
     if [ -e $GCCbPath/bin/$for32-gcc ];then

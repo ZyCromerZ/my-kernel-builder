@@ -8,11 +8,14 @@ FolderUp="keqing-drive"
 TypeBuildTag="[CFW][Stock-LMK]"
 
 CloneKernel
-CloneCompiledGccEleven
+# CloneCompiledGccEleven
+CloneCompiledGccTwelve
 # CloneGugelClang
 CloneGugelClang
-PullLtoSlmk
-CompileClangKernel && CleanOut
+# PullLtoSlmk
+PullSlmk
+CompileGccKernel
+# CompileClangKernel && CleanOut
 
 # cleanup stuff after done
 cd "${MainPath}"
