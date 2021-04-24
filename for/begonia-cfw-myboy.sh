@@ -10,12 +10,11 @@ TypeBuildTag="[CFW][Stock-LMK]"
 CloneKernel
 # CloneCompiledGccEleven
 CloneCompiledGccTwelve
-# CloneGugelClang
 CloneGugelClang
-# PullLtoSlmk
+PullLtoSlmk
+CompileClangKernel && CleanOut
 PullSlmk
-CompileGccKernel
-# CompileClangKernel && CleanOut
+CompileGccKernel && CleanOut
 
 # cleanup stuff after done
 cd "${MainPath}"
