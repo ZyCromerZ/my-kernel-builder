@@ -3,6 +3,7 @@ KernelBranch="20210412/q/main"
 
 IncludeFiles "${MainPath}/device/x01bd.sh"
 CustomUploader="Y"
+UseSpectrum="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/x01bd_kernel"
 FolderUp="keqing-drive"
 TypeBuildTag="[Q]"
