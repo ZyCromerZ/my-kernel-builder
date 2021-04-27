@@ -16,7 +16,7 @@ KDType="stock-memeui-clang"
 
 CloneKernel "--depth=1"
 CloneCompiledGccTwelve && CloneGugelClang
-CompileClangKernel && CleanOut
+# CompileClangKernel && CleanOut
 
 # KDType='stock-memeui-dtc'
 # CloneOldDTCClang

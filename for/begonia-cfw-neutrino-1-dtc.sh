@@ -16,10 +16,12 @@ doSFUp=$FolderUp
 
 CloneKernel
 CloneCompiledGccEleven
-CloneOldDTCClang && PullLto
+CloneOldDTCClang 
+# && PullLto
 TypeBuildTag="[CFW][Stock-LMK]"
-CompileClangKernel && PullLtoALmk
-CompileClangKernel && PullLtoSlmk
+# CompileClangKernel && PullLtoALmk
+# CompileClangKernel && 
+PullLtoSlmk
 CompileClangKernel && CleanOut
 
 

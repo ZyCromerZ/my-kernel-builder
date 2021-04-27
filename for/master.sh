@@ -1,13 +1,13 @@
 #! /bin/bash
-KernelBranch="eleven-upstream-mod2"
-IncludeFiles "${MainPath}/device/lancelot-q-oss.sh"
+KernelBranch="kudangapung"
+IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"
-IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/lancelot_kernels"
+IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 FolderUp="keqing-drive"
-TypeBuildTag="[TEST]"
+TypeBuildTag="[NON-CFW][TEST]"
 
 CloneKernel "--depth=1"
-CloneGccten
+CloneGCCOld
 CloneGugelClang
 CompileClangKernel
 
