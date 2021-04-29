@@ -16,11 +16,11 @@ KDType="stock-clang"
 
 CloneKernel "--depth=1"
 CloneCompiledGccTwelve && CloneGugelClang
-# CompileClangKernel && CleanOut
+CompileClangKernel && CleanOut
 
-# KDType='stock-dtc'
-# CloneOldDTCClang
-# CompileClangKernel && CleanOut
+KDType='stock-dtc'
+CloneOldDTCClang
+CompileClangKernel && CleanOut
 
 KDType='stock-gcc'
 CompileGccKernel
