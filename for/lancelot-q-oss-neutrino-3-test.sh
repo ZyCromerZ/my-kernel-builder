@@ -1,15 +1,16 @@
 #! /bin/bash
-KernelBranch="20210405/neutrino-3"
+KernelBranch="eleven-upstream-mod"
 
 IncludeFiles "${MainPath}/device/lancelot-q-oss.sh"
 CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/lancelot_kernels"
 FolderUp="keqing-drive"
-TypeBuildTag="[STABLE]"
+TypeBuildTag="[TEST][C]"
 
 CloneKernel
-CloneCompiledGccTwelve
-CloneOldDTCClang && PullLtoALmk
+CloneGCCOld
+CloneOldDTCClang
+#  && PullLtoALmk
 CompileClangKernel && CleanOut
 
 
