@@ -44,7 +44,7 @@ PullLto(){
 PullLtoALmk(){
     [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
     git reset --hard $HeadCommitId
-    git fetch origin 20210205/main-LTO
+    git fetch origin 20210205/main-ALMK2-LTO
     git pull --no-commit origin 20210205/main-ALMK2-LTO
     git commit -s -m 'Pull branch 20210205/main-ALMK2-LTO'
     TypeBuildTag="[NON-CFW][ALMK][Thin-LTO]"
@@ -53,7 +53,7 @@ PullLtoALmk(){
 PullLtoSlmk(){
     [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
     git reset --hard $HeadCommitId
-    git fetch origin 20210205/main-LTO
+    git fetch origin 20210205/main-SLMK2-LTO
     git pull --no-commit origin 20210205/main-SLMK2-LTO
     git commit -s -m 'Pull branch 20210205/main-SLMK2-LTO'
     TypeBuildTag="[NON-CFW][SLMK][Thin-LTO]"
