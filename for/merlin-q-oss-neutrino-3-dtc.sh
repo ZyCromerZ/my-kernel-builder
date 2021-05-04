@@ -1,19 +1,18 @@
 #! /bin/bash
-KernelBranch="20210405/qk-n"
+KernelBranch="20210405/neutrino-3"
 
-IncludeFiles "${MainPath}/device/lancelot-q-oss.sh"
+IncludeFiles "${MainPath}/device/merlin-q-oss.sh"
 CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/lancelot_kernels"
-FolderUp="letoy-qk"
+FolderUp="merlin-neutrino"
 doSFUp=$FolderUp
-doOsdnUp=$FolderUp
 TypeBuildTag="[STABLE]"
 
 CloneKernel
 CloneCompiledGccTwelve
-CloneGugelClang
-CompileClangKernel && pullALmk
-CompileClangKernel && pullSlmk
+CloneOldDTCClang && PullLto
+CompileClangKernel && PullLtoALmk
+CompileClangKernel && PullLtoSlmk
 CompileClangKernel && CleanOut
 
 

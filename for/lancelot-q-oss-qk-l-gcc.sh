@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="20210405/qk-n"
+KernelBranch="20210405/qk-l"
 
 IncludeFiles "${MainPath}/device/lancelot-q-oss.sh"
 CustomUploader="Y"
@@ -11,10 +11,9 @@ TypeBuildTag="[STABLE]"
 
 CloneKernel
 CloneCompiledGccTwelve
-CloneGugelClang
-CompileClangKernel && pullALmk
-CompileClangKernel && pullSlmk
-CompileClangKernel && CleanOut
+CompileGccKernel && pullALmk
+CompileGccKernel && pullSlmk
+CompileGccKernel && CleanOut
 
 
 # cleanup stuff after done

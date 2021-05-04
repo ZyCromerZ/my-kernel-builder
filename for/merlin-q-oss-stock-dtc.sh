@@ -1,20 +1,18 @@
 #! /bin/bash
-KernelBranch="20210405/neutrino-3"
+KernelBranch="eleven-upstream-mod"
 
 IncludeFiles "${MainPath}/device/merlin-q-oss.sh"
 CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/lancelot_kernels"
-FolderUp="merlin-neutrino"
+FolderUp="merlin-stock"
 doSFUp=$FolderUp
-TypeBuildTag="[STABLE]"
+doOsdnUp=$FolderUp
+TypeBuildTag="[STOCK][ThinLTO]"
 
-CloneKernel
-CloneCompiledGccTwelve
-CloneGugelClang && PullLto
-CompileClangKernel && PullLtoALmk
-CompileClangKernel && PullLtoSlmk
-CompileClangKernel && CleanOut
-
+CloneKernel "--depth=1"
+CloneCompiledGccEleven
+CloneOldDTCClang
+CompileClangKernel
 
 # cleanup stuff after done
 cd "${MainPath}"

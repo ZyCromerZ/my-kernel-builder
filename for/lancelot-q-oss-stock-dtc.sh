@@ -1,21 +1,18 @@
 #! /bin/bash
-KernelBranch="20210405/qk-n"
+KernelBranch="eleven-upstream-mod"
 
 IncludeFiles "${MainPath}/device/lancelot-q-oss.sh"
 CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/lancelot_kernels"
-FolderUp="letoy-qk"
+FolderUp="letoy-stock"
 doSFUp=$FolderUp
 doOsdnUp=$FolderUp
-TypeBuildTag="[STABLE]"
+TypeBuildTag="[STOCK][ThinLTO]"
 
-CloneKernel
-CloneCompiledGccTwelve
-CloneGugelClang
-CompileClangKernel && pullALmk
-CompileClangKernel && pullSlmk
-CompileClangKernel && CleanOut
-
+CloneKernel "--depth=1"
+CloneCompiledGccEleven
+CloneOldDTCClang
+CompileClangKernel
 
 # cleanup stuff after done
 cd "${MainPath}"

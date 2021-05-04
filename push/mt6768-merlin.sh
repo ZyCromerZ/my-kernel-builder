@@ -4,7 +4,7 @@ git checkout master
 if [ ! -z "$2" ];then
     ListBranch="$2"
 else
-    ListBranch="merlin-q-oss-qk-n merlin-q-oss-qk-l merlin-q-oss-neutrino-1 merlin-q-oss-neutrino-3"
+    ListBranch="merlin-q-oss-qk-n merlin-q-oss-qk-l merlin-q-oss-neutrino-1 merlin-q-oss-neutrino-3 merlin-q-oss-qk-n-dtc merlin-q-oss-qk-l-dtc merlin-q-oss-neutrino-1-dtc merlin-q-oss-neutrino-3-dtc merlin-q-oss-qk-n-dtc merlin-q-oss-qk-l-dtc merlin-q-oss-neutrino-1-dtc merlin-q-oss-neutrino-3-dtc lancelot-q-oss-neutrino-3-gcc"
 fi
 
 for Branch in $ListBranch

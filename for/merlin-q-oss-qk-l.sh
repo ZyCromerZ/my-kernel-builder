@@ -7,13 +7,14 @@ IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GI
 FolderUp="merlin-qk"
 doSFUp=$FolderUp
 doOsdnUp=$FolderUp
-TypeBuildTag="[GCC]"
+TypeBuildTag="[STABLE]"
 
 CloneKernel
-CloneCompiledGccEleven
-CompileGccKernel && pullALmk
-CompileGccKernel && pullSlmk
-CompileGccKernel && CleanOut
+CloneCompiledGccTwelve
+CloneGugelClang
+CompileClangKernel && pullALmk
+CompileClangKernel && pullSlmk
+CompileClangKernel && CleanOut
 
 
 # cleanup stuff after done

@@ -6,13 +6,13 @@ CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/lancelot_kernels"
 FolderUp="letoy-neutrino"
 doSFUp=$FolderUp
-TypeBuildTag="[DTC]"
+TypeBuildTag="[STABLE]"
 
 CloneKernel
-CloneCompiledGccEleven
-CloneOldDTCClang
-CompileClangKernel && pullALmk
-CompileClangKernel && pullSlmk
+CloneCompiledGccTwelve
+CloneGugelClang && PullLto
+CompileClangKernel && PullLtoALmk
+CompileClangKernel && PullLtoSlmk
 CompileClangKernel && CleanOut
 
 

@@ -34,6 +34,7 @@ pullSlmk(){
 
 PullLto(){
     [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
+    git reset --hard $HeadCommitId
     git fetch origin 20210405/main-LTO
     git pull --no-commit origin 20210405/main-LTO
     git commit -s -m 'Pull branch 20210405/main-LTO'
@@ -42,6 +43,7 @@ PullLto(){
 
 PullLtoALmk(){
     [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
+    git reset --hard $HeadCommitId
     git fetch origin 20210405/main-LTO
     git pull --no-commit origin 20210405/main-ALMK-LTO
     git commit -s -m 'Pull branch 20210405/main-ALMK-LTO'
@@ -50,6 +52,7 @@ PullLtoALmk(){
 
 PullLtoSlmk(){
     [[ "$(pwd)" != "${KernelPath}" ]] && cd "${KernelPath}"
+    git reset --hard $HeadCommitId
     git fetch origin 20210405/main-LTO
     git pull --no-commit origin 20210405/main-SLMK-LTO
     git commit -s -m 'Pull branch 20210405/main-SLMK-LTO'

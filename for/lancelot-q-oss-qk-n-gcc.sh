@@ -11,10 +11,9 @@ TypeBuildTag="[STABLE]"
 
 CloneKernel
 CloneCompiledGccTwelve
-CloneGugelClang
-CompileClangKernel && pullALmk
-CompileClangKernel && pullSlmk
-CompileClangKernel && CleanOut
+CompileGccKernel && pullALmk
+CompileGccKernel && pullSlmk
+CompileGccKernel && CleanOut
 
 
 # cleanup stuff after done
