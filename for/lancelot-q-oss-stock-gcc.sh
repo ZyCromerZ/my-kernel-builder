@@ -10,7 +10,7 @@ doOsdnUp=$FolderUp
 TypeBuildTag="[STOCK]"
 
 CloneKernel "--depth=1"
-CloneCompiledGccEleven
+CloneCompiledGccTwelve
 CompileGccKernel
 
 # cleanup stuff after done

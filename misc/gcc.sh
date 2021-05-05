@@ -100,16 +100,16 @@ CloneCompiledGccTwelve(){
     rm -rf ${GCCaPath}/aarch64-zyc-linux-gnu ${GCCbPath}/arm-zyc-linux-gnueabi
     mkdir "${GCCaPath}"
     mkdir "${GCCbPath}"
-    if [ ! -e "${MainPath}/arm-zyc-linux-gnueabi-12.x-gnu-20210429.tar.gz" ];then
-        wget  https://github.com/ZyCromerZ/compiled-gcc/releases/download/varm-zyc-linux-gnueabi-12.x-gnu-20210429/arm-zyc-linux-gnueabi-12.x-gnu-20210429.tar.gz
+    if [ ! -e "${MainPath}/arm-zyc-linux-gnueabi-12.x-gnu-20210505.tar.gz" ];then
+        wget  https://github.com/ZyCromerZ/compiled-gcc/releases/download/varm-zyc-linux-gnueabi-12.x-gnu-20210505/arm-zyc-linux-gnueabi-12.x-gnu-20210505.tar.gz
     fi
-    tar -xf arm-zyc-linux-gnueabi-12.x-gnu-20210429.tar.gz -C $GCCbPath
+    tar -xf arm-zyc-linux-gnueabi-12.x-gnu-20210505.tar.gz -C $GCCbPath
     GCCbPath="${GCCbPath}/arm-zyc-linux-gnueabi"
     for32=arm-zyc-linux-gnueabi
-    if [ ! -e "${MainPath}/aarch64-zyc-linux-gnu-12.x-gnu-20210429.tar.gz" ];then
-        wget https://github.com/ZyCromerZ/compiled-gcc/releases/download/vaarch64-zyc-linux-gnu-12.x-gnu-20210429/aarch64-zyc-linux-gnu-12.x-gnu-20210429.tar.gz
+    if [ ! -e "${MainPath}/aarch64-zyc-linux-gnu-12.x-gnu-20210505.tar.gz" ];then
+        wget https://github.com/ZyCromerZ/compiled-gcc/releases/download/vaarch64-zyc-linux-gnu-12.x-gnu-20210505/aarch64-zyc-linux-gnu-12.x-gnu-20210505.tar.gz
     fi
-    tar -xf aarch64-zyc-linux-gnu-12.x-gnu-20210429.tar.gz -C $GCCaPath
+    tar -xf aarch64-zyc-linux-gnu-12.x-gnu-20210505.tar.gz -C $GCCaPath
     GCCaPath="${GCCaPath}/aarch64-zyc-linux-gnu"
     for64=aarch64-zyc-linux-gnu
     GetGccVersion

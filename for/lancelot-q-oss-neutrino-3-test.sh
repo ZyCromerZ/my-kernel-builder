@@ -9,7 +9,7 @@ TypeBuildTag="[TEST][C]"
 
 CloneKernel
 CloneGCCOld
-CloneOldDTCClang
+CloneCompiledGccTwelve
 #  && PullLtoALmk
 CompileClangKernel && CleanOut
 
