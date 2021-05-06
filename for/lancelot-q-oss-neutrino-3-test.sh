@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="eleven-upstream-mod"
+KernelBranch="eleven-upstream-mod2"
 
 IncludeFiles "${MainPath}/device/lancelot-q-oss.sh"
 CustomUploader="Y"
