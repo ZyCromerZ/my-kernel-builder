@@ -43,4 +43,6 @@ IncludeFiles(){
     fi
 }
 
+apt-get install cpio
+
 IncludeFiles "$MainPath/for/${branch}.sh"
