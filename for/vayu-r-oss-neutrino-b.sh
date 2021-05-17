@@ -1,11 +1,11 @@
 #! /bin/bash
-KernelBranch="20210517/main"
+KernelBranch="20210517/neutrino-b"
 
 IncludeFiles "${MainPath}/device/vayu-r-oss.sh"
 CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/vayu_kernel"
 FolderUp="keqing-drive"
-TypeBuildTag="[r-oss]"
+TypeBuildTag="[ThinLTO][R-OSS]"
 
 # misc
 # doOsdnUp=$FolderUp
