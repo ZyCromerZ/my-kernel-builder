@@ -278,7 +278,9 @@ MakeZip(){
         cp -af $SpectrumPath/$SpectrumFile init.spectrum.rc && sed -i "s/persist.spectrum.kernel.*/persist.spectrum.kernel $KName/g" init.spectrum.rc
     fi
     cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by ZyCromerZ/g" anykernel.sh
-    
+    if [ "$CODENAME" == "Vayu" ];then
+        cp -af $KernelPath/out/arch/$ARCH/boot/dtbo.img $AnyKernelPath
+    fi
     # update zip name :v
     ZipName=${ZipName/"--"/"-"}
     zip -r9 "$ZipName" * -x .git README.md anykernel-real.sh .gitignore *.zip
