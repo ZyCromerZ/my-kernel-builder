@@ -263,6 +263,91 @@ CompileGccKernel(){
 
 }
 
+CompileProtonClangKernel(){
+    cd "${KernelPath}"
+    SendInfoLink
+    BUILD_START=$(date +"%s")
+    make    -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
+    if [ -d "${ClangPath}/lib64" ];then
+        MAKE+=(
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
+                CC="ccache clang" \
+                CROSS_COMPILE=aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
+                AR=llvm-ar \
+                NM=llvm-nm \
+                OBJCOPY=llvm-objcopy \
+                OBJDUMP=llvm-objdump \
+                STRIP=llvm-strip \
+                LD=ld.lld \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+        )
+        make    -j${TotalCores}  O=out \
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
+                CROSS_COMPILE=aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
+                AR=llvm-ar \
+                NM=llvm-nm \
+                OBJCOPY=llvm-objcopy \
+                OBJDUMP=llvm-objdump \
+                STRIP=llvm-strip \
+                LD=ld.lld \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+    else
+        MAKE+=(
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+                CC="ccache clang" \
+                CROSS_COMPILE=aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
+                AR=llvm-ar \
+                NM=llvm-nm \
+                OBJCOPY=llvm-objcopy \
+                OBJDUMP=llvm-objdump \
+                STRIP=llvm-strip \
+                LD=ld.lld \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+        )
+        make    -j${TotalCores}  O=out \
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+                CC="ccache clang" \
+                CROSS_COMPILE=aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
+                AR=llvm-ar \
+                NM=llvm-nm \
+                OBJCOPY=llvm-objcopy \
+                OBJDUMP=llvm-objdump \
+                STRIP=llvm-strip \
+                LD=ld.lld \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+    fi
+    BUILD_END=$(date +"%s")
+    DIFF=$((BUILD_END - BUILD_START))
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+        MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
+        . $MainPath/misc/bot.sh "send_info" "$MSG"
+        exit 1
+    fi
+    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
+    ZipName="[$GetBD][$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
+    CompilerStatus="- <code>${ClangType}</code>%0A- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
+    if [ ! -z "$1" ];then
+        MakeZip "$1"
+    else
+        MakeZip
+    fi
+}
+
 CleanOut()
 {
     cd "${KernelPath}"

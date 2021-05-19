@@ -44,3 +44,17 @@ CloneDTCClang(){
     TypeBuilder="DTC"
     ClangType="$(${ClangPath}/bin/clang --version | head -n 1)"
 }
+
+CloneProtonClang(){
+    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
+    if [ ! -d "${ClangPath}" ];then
+        git clone https://github.com/kdrag0n/proton-clang -b master "${ClangPath}" --depth=1
+    else
+        cd "${ClangPath}"
+        git fetch https://github.com/kdrag0n/proton-clang master --depth=1
+        git checkout FETCH_HEAD
+        [[ ! -z "$(git branch | grep master)" ]] && git branch -D master
+        git checkout -b master
+    fi
+    TypeBuilder="Proton"
+}
