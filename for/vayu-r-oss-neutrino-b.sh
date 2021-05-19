@@ -13,5 +13,7 @@ TypeBuildTag="[SLMK][ThinLTO][R-OSS]"
  
 
 CloneKernel "--depth=1"
-CloneCompiledGccTwelve && CloneDTCClang
-CompileClangKernel && CleanOut
+# CloneCompiledGccTwelve && CloneDTCClang
+# CompileClangKernel && CleanOut
+CloneProtonClang
+CompileProtonClangKernel && CleanOut
