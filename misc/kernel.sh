@@ -340,7 +340,7 @@ CompileProtonClangKernel(){
     cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
     KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$GetBD][$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
-    CompilerStatus="- <code>${ClangType}</code>%0A- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
+    CompilerStatus="- <code>${ClangType}</code>"
     if [ ! -z "$1" ];then
         MakeZip "$1"
     else

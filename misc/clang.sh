@@ -57,4 +57,5 @@ CloneProtonClang(){
         git checkout -b master
     fi
     TypeBuilder="Proton"
+    ClangType="$(${ClangPath}/bin/clang --version | head -n 1)"
 }
