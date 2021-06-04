@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="20210529/main-upstream"
+KernelBranch="20210529/main-mod"
 
 IncludeFiles "${MainPath}/device/vayu-r-oss.sh"
 CustomUploader="Y"

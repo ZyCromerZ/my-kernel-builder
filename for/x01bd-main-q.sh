@@ -10,9 +10,9 @@ TypeBuildTag="[Q]"
 spectrumFile="xobod-base.rc"
 
 CloneKernel "--depth=1"
-CloneGCCOld
-CloneGugelClang
-CompileClangKernel && CleanOut
-CloneDTCClang
-CompileClangKernel && CleanOut
-
+CloneCompiledGccTwelve
+# CloneProtonClang
+# CompileClangKernel && CleanOut
+# CloneDTCClang
+# CompileClangKernel && CleanOut
+CompileGccKernel && CleanOut
