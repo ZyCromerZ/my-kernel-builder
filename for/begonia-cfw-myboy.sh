@@ -6,7 +6,7 @@ CustomUploader="Y"
 UseSpectrum="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 spectrumFile="bego-on-p.rc"
-FolderUp="keqing-drive"
+FolderUp="shared-file"
 TypeBuildTag="[CFW][Stock-LMK]"
 
 CloneKernel

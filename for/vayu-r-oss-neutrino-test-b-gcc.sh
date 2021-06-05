@@ -5,7 +5,7 @@ IncludeFiles "${MainPath}/device/vayu-r-oss.sh"
 CustomUploader="Y"
 DEFFCONFIG="vayu_gcc_defconfig"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/vayu_kernel"
-FolderUp="keqing-drive"
+FolderUp="shared-file"
 TypeBuildTag="[R-OSS]"
 
 # misc

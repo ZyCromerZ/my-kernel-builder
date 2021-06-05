@@ -4,7 +4,7 @@ KernelBranch="20210517/neutrino-keqing"
 IncludeFiles "${MainPath}/device/vayu-r-oss.sh"
 CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/vayu_kernel"
-FolderUp="keqing-drive"
+FolderUp="shared-file"
 TypeBuildTag="[SLMK][ThinLTO][R-OSS]"
 
 # misc
