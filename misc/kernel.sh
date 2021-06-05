@@ -359,8 +359,8 @@ CleanOut()
 
 MakeZip(){
     cd $AnyKernelPath
-    if [ ! -z "$SpectrumFile" ] && [ "$UseSpectrum" == "Y" ];then
-        cp -af $SpectrumPath/$SpectrumFile init.spectrum.rc && sed -i "s/persist.spectrum.kernel.*/persist.spectrum.kernel $KName/g" init.spectrum.rc
+    if [ ! -z "$spectrumFile" ] && [ "$UseSpectrum" == "Y" ];then
+        cp -af $SpectrumPath/$spectrumFile init.spectrum.rc && sed -i "s/persist.spectrum.kernel.*/persist.spectrum.kernel $KName/g" init.spectrum.rc
     fi
     cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by ZyCromerZ/g" anykernel.sh
     if [ "$CODENAME" == "Vayu" ];then
