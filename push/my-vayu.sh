@@ -4,7 +4,7 @@ git checkout master
 if [ ! -z "$2" ];then
     ListBranch="$2"
 else
-    ListBranch="vayu-r-oss-neutrino-test vayu-r-oss-neutrino-test-gcc vayu-r-oss-neutrino-test-b vayu-r-oss-neutrino-test-b-gcc"
+    ListBranch="vayu-r-oss-test"
 fi
 
 for Branch in $ListBranch
