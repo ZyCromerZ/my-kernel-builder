@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="20210412/q/main"
+KernelBranch="20210413/r/main-for-q"
 
 IncludeFiles "${MainPath}/device/x01bd.sh"
 CustomUploader="Y"
@@ -12,8 +12,8 @@ spectrumFile="xobod-base.rc"
 
 CloneKernel "--depth=1"
 CloneCompiledGccTwelve
-# CloneProtonClang
-# CompileClangKernel && CleanOut
-# CloneDTCClang
-# CompileClangKernel && CleanOut
+CloneProtonClang
+CompileClangKernel && CleanOut
+CloneDTCClang
+CompileClangKernel && CleanOut
 CompileGccKernel && CleanOut
