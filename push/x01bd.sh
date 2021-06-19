@@ -17,9 +17,16 @@ done
 
 if [ ! -z "$1" ];then
     repo="$1"
+    Normal="N"
 else
     repo="zyc"
+    Normal="Y"
 fi
-git push -f "$repo" $ListBranch
+if [ "$Normal" == "Y" ];then
+    git push -f neet x01bd-main-q
+    git push -f zyc x01bd-main-r
+else
+    git push -f "$repo" $ListBranch
+fi
 
 git checkout master
