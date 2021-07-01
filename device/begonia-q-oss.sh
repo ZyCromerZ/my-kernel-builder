@@ -11,7 +11,7 @@ GetCBD=$(date +"%Y-%m-%d")
 TypeBuildTag="[NON-CFW]"
 FolderUp="begonia"
 ExFolder=""
-AnyKernelBranch="master-begonia"
+AnyKernelBranch="master-begonia-q-oss"
 FirstSendInfoLink="N"
 
 pullALmk(){

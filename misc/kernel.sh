@@ -366,6 +366,11 @@ MakeZip(){
     if [ "$CODENAME" == "Vayu" ];then
         cp -af $KernelPath/out/arch/$ARCH/boot/dtbo.img $AnyKernelPath
     fi
+    # remove placeholder file
+    for asu in `find . -name placeholder`
+    do
+        rm -rf "$asu"
+    done
     # update zip name :v
     ZipName=${ZipName/"--"/"-"}
     zip -r9 "$ZipName" * -x .git README.md anykernel-real.sh .gitignore *.zip
