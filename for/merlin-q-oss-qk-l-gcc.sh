@@ -10,7 +10,7 @@ doOsdnUp=$FolderUp
 TypeBuildTag="[STABLE]"
 
 CloneKernel
-CloneCompiledGccTwelve
+CloneCompiledGccEleven
 CompileGccKernel && pullALmk
 CompileGccKernel && pullSlmk
 CompileGccKernel && CleanOut
