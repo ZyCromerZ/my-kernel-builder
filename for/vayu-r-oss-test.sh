@@ -15,7 +15,9 @@ TypeBuildTag="[TEST][Personal]"
 CloneKernel "--depth=1"
 # CloneGCCOld && CloneGugelClang
 # CompileClangKernel && CleanOut
-CloneCompiledGccTwelve && CloneDTCClang
-CompileClangKernel && CleanOut
-CloneProtonClang
-CompileProtonClangKernel && CleanOut
+CloneCompiledGccTwelve
+# CloneDTCClang
+# CompileClangKernel && CleanOut
+# CloneProtonClang
+# CompileProtonClangKernel && CleanOut
+CompileGccKernel
