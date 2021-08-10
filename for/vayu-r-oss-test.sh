@@ -16,8 +16,9 @@ CloneKernel "--depth=1"
 # CloneGCCOld && CloneGugelClang
 # CompileClangKernel && CleanOut
 CloneCompiledGccTwelve
-# CloneDTCClang
-# CompileClangKernel && CleanOut
-# CloneProtonClang
-# CompileProtonClangKernel && CleanOut
+CloneDTCClang
+CompileClangKernel && CleanOut
+CloneProtonClang
+CompileProtonClangKernel && CleanOut
+DEFFCONFIG="vayu_user_gcc_defconfig"
 CompileGccKernel
