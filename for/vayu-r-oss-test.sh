@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="20210529/neutrino-lk"
+KernelBranch="20210812/main"
 
 IncludeFiles "${MainPath}/device/vayu-r-oss.sh"
 CustomUploader="Y"
@@ -12,6 +12,7 @@ TypeBuildTag="[TEST][Personal]"
 # doSFUp=$FolderUp
  
 
+DEFFCONFIG="vayu_defconfig"
 CloneKernel "--depth=1"
 # CloneGCCOld && CloneGugelClang
 # CompileClangKernel && CleanOut
@@ -20,5 +21,5 @@ CloneDTCClang
 CompileClangKernel && CleanOut
 CloneProtonClang
 CompileProtonClangKernel && CleanOut
-DEFFCONFIG="vayu_user_gcc_defconfig"
+DEFFCONFIG="vayu_gcc_defconfig"
 CompileGccKernel
