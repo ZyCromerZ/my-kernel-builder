@@ -365,6 +365,7 @@ MakeZip(){
     cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by ZyCromerZ/g" anykernel.sh
     if [ "$CODENAME" == "Vayu" ];then
         cp -af $KernelPath/out/arch/$ARCH/boot/dtbo.img $AnyKernelPath
+        find "$KernelPath/out/arch/$ARCH/boot/dts/qcom" -name "*.dtb" -exec cat {} + > $AnykernelPath/dtb
     fi
     # remove placeholder file
     for asu in `find . -name placeholder`
@@ -375,6 +376,10 @@ MakeZip(){
     ZipName=${ZipName/"--"/"-"}
     zip -r9 "$ZipName" * -x .git README.md anykernel-real.sh .gitignore *.zip
 
+    # remove dtb file after make a zip
+    if [ "$CODENAME" == "Vayu" ];then
+        rm -rf $AnykernelPath/dtb
+    fi
     KernelFiles="$(pwd)/$ZipName"
 
     if [ ! -z "$1" ];then
