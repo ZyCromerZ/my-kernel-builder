@@ -59,3 +59,18 @@ CloneProtonClang(){
     TypeBuilder="Proton"
     ClangType="$(${ClangPath}/bin/clang --version | head -n 1)"
 }
+
+CloneSdClang(){
+    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
+    if [ ! -d "${ClangPath}" ];then
+        git clone https://github.com/ThankYouMario/proprietary_vendor_qcom_sdclang -b ruby-12 "${ClangPath}" --depth=1
+    else
+        cd "${ClangPath}"
+        git fetch https://github.com/ThankYouMario/proprietary_vendor_qcom_sdclang ruby-12 --depth=1
+        git checkout FETCH_HEAD
+        [[ ! -z "$(git branch | grep ruby-12)" ]] && git branch -D ruby-12
+        git checkout -b ruby-12
+    fi
+    TypeBuilder="SDClang"
+    ClangType="$(${ClangPath}/bin/clang --version | head -n 1)"
+}

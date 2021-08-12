@@ -12,13 +12,12 @@ TypeBuildTag="[TEST]"
 # doSFUp=$FolderUp
  
 
-DEFFCONFIG="vayu_defconfig"
 CloneKernel "--depth=1"
 # CloneGCCOld && CloneGugelClang
 # CompileClangKernel && CleanOut
 CloneCompiledGccTwelve
-# CloneDTCClang
-# CompileClangKernel && CleanOut
+CloneSdClang
+CompileClangKernel && CleanOut
 CloneProtonClang
 CompileProtonClangKernel && CleanOut
 DEFFCONFIG="vayu_gcc_defconfig"
