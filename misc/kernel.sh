@@ -348,6 +348,40 @@ CompileProtonClangKernel(){
     fi
 }
 
+CompileLlvmKernel(){
+    cd "${KernelPath}"
+    SendInfoLink
+    BUILD_START=$(date +"%s")
+    make    -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
+    MAKE+=(
+            ARCH=$ARCH \
+            SUBARCH=$ARCH \
+            PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+            LLVM=1
+    )
+    make    -j${TotalCores}  O=out \
+            ARCH=$ARCH \
+            SUBARCH=$ARCH \
+            PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+            LLVM=1
+    BUILD_END=$(date +"%s")
+    DIFF=$((BUILD_END - BUILD_START))
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+        MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
+        . $MainPath/misc/bot.sh "send_info" "$MSG"
+        exit 1
+    fi
+    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
+    ZipName="[$GetBD][$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
+    CompilerStatus="- <code>${ClangType}</code>"
+    if [ ! -z "$1" ];then
+        MakeZip "$1"
+    else
+        MakeZip
+    fi
+}
+
 CleanOut()
 {
     cd "${KernelPath}"
