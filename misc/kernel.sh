@@ -364,8 +364,7 @@ MakeZip(){
     fi
     cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by ZyCromerZ/g" anykernel.sh
     if [ "$CODENAME" == "Vayu" ];then
-        cp -af $KernelPath/out/arch/$ARCH/boot/dtbo.img $AnyKernelPath
-        find "$KernelPath/out/arch/$ARCH/boot/dts/qcom" -name "*.dtb" -exec cat {} + > $AnykernelPath/dtb
+        cp -af "$KernelPath/out/arch/$ARCH/boot/dtbo.img" "$AnyKernelPath/dtbo.img"
     fi
     # remove placeholder file
     for asu in `find . -name placeholder`
@@ -377,9 +376,6 @@ MakeZip(){
     zip -r9 "$ZipName" * -x .git README.md anykernel-real.sh .gitignore *.zip
 
     # remove dtb file after make a zip
-    if [ "$CODENAME" == "Vayu" ];then
-        rm -rf $AnykernelPath/dtb
-    fi
     KernelFiles="$(pwd)/$ZipName"
 
     if [ ! -z "$1" ];then
@@ -424,10 +420,12 @@ UploadKernel(){
     fi
     
     # always remove compiled dtb and kernel zip
-    rm -rf "$KernelPath/out/arch/$ARCH/boot/Image.gz-dtb"
-    getInfo "remove kernel dtb files done"
-    rm -rf "${KernelFiles}"
-    getInfo "remove kernel zip files done"
+    rm -rf "$KernelPath/out/arch/$ARCH/boot/Image.gz-dtb" && getInfo "remove Image.gz-dtb file done"
+    rm -rf "${KernelFiles}" && getInfo "remove kernel zip files done"
+
+    if [ "$CODENAME" == "Vayu" ];then
+        rm -rf $AnyKernelPath/dtbo.img && getInfo "remove dtbo.img file done"
+    fi
     
 }
 
