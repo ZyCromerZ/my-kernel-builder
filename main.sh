@@ -43,6 +43,6 @@ IncludeFiles(){
     fi
 }
 
-apt-get install cpio
+apt-get install cpio libtinfo5
 
 IncludeFiles "$MainPath/for/${branch}.sh"
