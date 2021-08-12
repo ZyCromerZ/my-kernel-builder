@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="20210812/main-prepare"
+KernelBranch="20210812/main-slmk"
 
 IncludeFiles "${MainPath}/device/vayu-r-oss.sh"
 CustomUploader="Y"
