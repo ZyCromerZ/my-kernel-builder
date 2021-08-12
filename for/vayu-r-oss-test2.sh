@@ -1,11 +1,11 @@
 #! /bin/bash
-KernelBranch="20210812/main"
+KernelBranch="20210812/base"
 
 IncludeFiles "${MainPath}/device/vayu-r-oss.sh"
 CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/vayu_kernel"
 # FolderUp="shared-file"
-TypeBuildTag="[TEST][Prepare]"
+TypeBuildTag="[TEST][Base]"
 
 # misc
 # doOsdnUp=$FolderUp
