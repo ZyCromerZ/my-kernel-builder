@@ -19,7 +19,8 @@ CloneProtonClang
 CompileProtonClangKernel && CleanOut
 DEFFCONFIG="vayu_gcc_defconfig"
 TypeBuildTag="[TEST][NORMAL]"
-CloneCompiledGccTwelve
+# CloneCompiledGccTwelve
+CloneCompiledGccEleven
 # CloneSdClang
 # CompileClangKernel && CleanOut
 CompileGccKernel
