@@ -1,11 +1,11 @@
 #! /bin/bash
-KernelBranch="20210812/main-prepare"
+KernelBranch="20210812/main-upstream"
 
 IncludeFiles "${MainPath}/device/vayu-r-oss.sh"
 CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/vayu_kernel"
 # FolderUp="shared-file"
-TypeBuildTag="[TEST][ThinLTO]"
+TypeBuildTag="[TEST]"
 
 # misc
 # doOsdnUp=$FolderUp
@@ -17,10 +17,11 @@ CloneKernel "--depth=1"
 # CompileClangKernel && CleanOut
 CloneProtonClang
 CompileProtonClangKernel && CleanOut
-DEFFCONFIG="vayu_gcc_defconfig"
-TypeBuildTag="[TEST][NORMAL]"
 # CloneCompiledGccTwelve
 CloneCompiledGccEleven
 # CloneSdClang
 # CompileClangKernel && CleanOut
+CloneDTCClang
+CompileClangKernel && CleanOut
+DEFFCONFIG="vayu_gcc_defconfig"
 CompileGccKernel
