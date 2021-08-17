@@ -15,7 +15,7 @@ doSFUp=$FolderUp
  
 
 CloneKernel
-CloneCompiledGccTwelve
+CloneCompiledGccEleven
 TypeBuildTag="[NON-CFW][Stock-LMK]"
 CompileGccKernel && pullALmk
 CompileGccKernel && pullSlmk

@@ -15,7 +15,7 @@ doSFUp=$FolderUp
  
 
 CloneKernel
-CloneCompiledGccTwelve && CloneProtonClang && PullLto
+CloneCompiledGccEleven && CloneProtonClang && PullLto
 CompileClangKernel && PullLtoALmk
 CompileClangKernel && PullLtoSlmk
 CompileClangKernel && CleanOut
