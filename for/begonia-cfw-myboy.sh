@@ -12,8 +12,8 @@ TypeBuildTag="[CFW][Stock-LMK]"
 CloneKernel
 # CloneCompiledGccEleven
 CloneCompiledGccTwelve
-# CloneGugelClang
-CloneOldDTCClang
+# CloneProtonClang
+CloneDTCClang
 PullLtoSlmk
 CompileClangKernel && CleanOut
 # PullSlmk

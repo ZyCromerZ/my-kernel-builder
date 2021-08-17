@@ -15,11 +15,11 @@ KernelDownloader="Y"
 KDType="stock-clang"
 
 CloneKernel "--depth=1"
-CloneCompiledGccTwelve && CloneGugelClang
+CloneCompiledGccTwelve && CloneProtonClang
 CompileClangKernel && CleanOut
 
 KDType='stock-dtc'
-CloneOldDTCClang
+CloneDTCClang
 CompileClangKernel && CleanOut
 
 KDType='stock-gcc'
