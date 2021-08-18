@@ -22,6 +22,6 @@ CloneCompiledGccEleven
 # CloneSdClang
 # CompileClangKernel && CleanOut
 CloneDTCClang
-CompileClangKernel && CleanOut
 DEFFCONFIG="vayu_gcc_defconfig"
+CompileClangKernel && CleanOut
 CompileGccKernel
