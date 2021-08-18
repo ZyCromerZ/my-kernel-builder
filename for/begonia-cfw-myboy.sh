@@ -13,8 +13,10 @@ CloneKernel
 # CloneCompiledGccEleven
 CloneCompiledGccEleven
 # CloneProtonClang
-CloneDTCClang
+# CloneDTCClang
 PullLtoSlmk
+# CompileClangKernel && CleanOut
+CloneProtonClang
 CompileClangKernel && CleanOut
 # PullSlmk
 # CompileGccKernel && CleanOut
