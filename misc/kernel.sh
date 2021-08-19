@@ -22,7 +22,6 @@ if [ ! -z "$1" ];then
         git clone https://github.com/ZyCromerZ/Spectrum -b master "${SpectrumPath}"  --depth=1 
     fi
     git clone https://github.com/ZyCromerZ/Anykernel3 -b "${AnyKernelBranch}" "${AnyKernelPath}"
-    if
     [[ -z "$ImgName" ]] && ImgName="Image.gz-dtb"
     [[ -z "$UseDtb" ]] && UseDtb="n"
     [[ -z "$UseDtbo" ]] && UseDtbo="n"
@@ -594,8 +593,8 @@ MakeZip(){
     cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by ZyCromerZ/g" anykernel.sh
     [[ "$UseDtbo" == "y" ]] && cp -af "$KernelPath/out/arch/$ARCH/boot/dtbo.img" "$AnyKernelPath/dtbo.img"
     if [[ "$UseDtb" == "y" ]];then
-        ( find "$KernelPath/out/arch/$ARCH/boot/dts/qcom" -name "*.dtb" -exec cat {} + > $AnykernelPath/dtb )
-        [[ ! -e "$AnykernelPath/dtb" ]] && [[ ! -z "$BASE_DTB_NAME" ]] && cp $KernelPath/out/arch/$ARCH/boot/dts/qcom/$BASE_DTB_NAME $AnykernelPath/dtb
+        ( find "$KernelPath/out/arch/$ARCH/boot/dts/qcom" -name "*.dtb" -exec cat {} + > $AnyKernelPath/dtb )
+        [[ ! -e "$AnyKernelPath/dtb" ]] && [[ ! -z "$BASE_DTB_NAME" ]] && cp $KernelPath/out/arch/$ARCH/boot/dts/qcom/$BASE_DTB_NAME $AnyKernelPath/dtb
     fi
     # remove placeholder file
     for asu in `find . -name placeholder`
@@ -655,6 +654,8 @@ UploadKernel(){
     do
         rm -rf $AnyKernelPath/$FIleName
     done
+    # remove kernel zip
+    rm -rf "$AnyKernelPath/$ZipName"
     
 }
 

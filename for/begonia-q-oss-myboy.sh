@@ -17,7 +17,7 @@ CloneCompiledGccEleven
 PullLtoSlmk
 # CompileClangKernel && CleanOut
 CloneProtonClang
-CompileClangLTO2Kernel && CleanOut
+CompileClangKernel && CleanOut
 # PullSlmk
 # CompileGccKernel && CleanOut
 
