@@ -22,6 +22,10 @@ if [ ! -z "$1" ];then
         git clone https://github.com/ZyCromerZ/Spectrum -b master "${SpectrumPath}"  --depth=1 
     fi
     git clone https://github.com/ZyCromerZ/Anykernel3 -b "${AnyKernelBranch}" "${AnyKernelPath}"
+    if
+    [[ -z "$ImgName" ]] && ImgName="Image.gz-dtb"
+    [[ -z "$UseDtb" ]] && UseDtb="n"
+    [[ -z "$UseDtbo" ]] && UseDtbo="n"
 else    
     getInfoErr "KernelRepo is missing :/"
     [ ! -z "${DRONE_BRANCH}" ] && . $MainPath/misc/bot.sh "send_info" "<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b%0A%0ASad Boy"
@@ -87,6 +91,7 @@ CompileClangKernel(){
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
                 PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
                 CC=clang \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -96,6 +101,7 @@ CompileClangKernel(){
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
                 PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
                 CC=clang \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -103,12 +109,12 @@ CompileClangKernel(){
     fi
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
-    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/${ImgName} ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
-    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    cp -af $KernelPath/out/arch/$ARCH/boot/${ImgName} $AnyKernelPath
     KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$GetBD][$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${ClangType}</code>%0A- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
@@ -171,6 +177,7 @@ CompileClangLTOKernel(){
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
                 PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
                 CC=clang \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -191,6 +198,7 @@ CompileClangLTOKernel(){
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
                 PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
                 CC=clang \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
@@ -209,12 +217,114 @@ CompileClangLTOKernel(){
     fi
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
-    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/${ImgName} ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
-    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    cp -af $KernelPath/out/arch/$ARCH/boot/${ImgName} $AnyKernelPath
+    KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
+    ZipName="[$GetBD][$TypeBuilder][LTO]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
+    CompilerStatus="- <code>${ClangType}</code>%0A- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
+    if [ ! -z "$1" ];then
+        MakeZip "$1"
+    else
+        MakeZip
+    fi
+}
+
+CompileClangLTO2Kernel(){
+    cd "${KernelPath}"
+    SendInfoLink
+    BUILD_START=$(date +"%s")
+    make    -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
+    if [ -d "${ClangPath}/lib64" ];then
+        MAKE+=(
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
+                CC=clang \
+                CROSS_COMPILE=$for64- \
+                CROSS_COMPILE_ARM32=$for32- \
+                AS=llvm-as \
+                NM=llvm-nm \
+                STRIP=llvm-strip \
+                OBJDUMP=llvm-objdump \
+                OBJSIZE=llvm-size \
+                READELF=llvm-readelf \
+                HOSTCC=clang \
+                HOSTCXX=clang++ \
+                HOSTAR=llvm-ar \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+        )
+        make    -j${TotalCores}  O=out \
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
+                CC=clang \
+                CROSS_COMPILE=$for64- \
+                CROSS_COMPILE_ARM32=$for32- \
+                AS=llvm-as \
+                NM=llvm-nm \
+                STRIP=llvm-strip \
+                OBJDUMP=llvm-objdump \
+                OBJSIZE=llvm-size \
+                READELF=llvm-readelf \
+                HOSTCC=clang \
+                HOSTCXX=clang++ \
+                HOSTAR=llvm-ar \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+    else
+        MAKE+=(
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
+                CC=clang \
+                CROSS_COMPILE=$for64- \
+                CROSS_COMPILE_ARM32=$for32- \
+                AS=llvm-as \
+                NM=llvm-nm \
+                STRIP=llvm-strip \
+                OBJDUMP=llvm-objdump \
+                OBJSIZE=llvm-size \
+                READELF=llvm-readelf \
+                HOSTCC=clang \
+                HOSTCXX=clang++ \
+                HOSTAR=llvm-ar \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+        )
+        make    -j${TotalCores}  O=out \
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
+                CC=clang \
+                CROSS_COMPILE=$for64- \
+                CROSS_COMPILE_ARM32=$for32- \
+                AS=llvm-as \
+                NM=llvm-nm \
+                STRIP=llvm-strip \
+                OBJDUMP=llvm-objdump \
+                OBJSIZE=llvm-size \
+                READELF=llvm-readelf \
+                HOSTCC=clang \
+                HOSTCXX=clang++ \
+                HOSTAR=llvm-ar \
+                HOSTLD=ld.lld \
+                LD=ld.lld \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+    fi
+    BUILD_END=$(date +"%s")
+    DIFF=$((BUILD_END - BUILD_START))
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/${ImgName} ]];then
+        MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
+        . $MainPath/misc/bot.sh "send_info" "$MSG"
+        exit 1
+    fi
+    cp -af $KernelPath/out/arch/$ARCH/boot/${ImgName} $AnyKernelPath
     KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$GetBD][$TypeBuilder][LTO]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${ClangType}</code>%0A- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
@@ -246,12 +356,12 @@ CompileGccKernel(){
     
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
-    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/${ImgName} ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
-    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    cp -af $KernelPath/out/arch/$ARCH/boot/${ImgName} $AnyKernelPath
     KName=$(cat "${KernelPath}/arch/${ARCH}/configs/${DEFFCONFIG}" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$GetBD][GCC]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${gcc32Type}</code>%0A- <code>${gcc64Type}</code>"
@@ -304,6 +414,7 @@ CompileProtonClangKernel(){
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
                 PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
                 CC=clang \
                 CROSS_COMPILE=aarch64-linux-gnu- \
                 CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
@@ -319,6 +430,7 @@ CompileProtonClangKernel(){
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
                 PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
                 CC=clang \
                 CROSS_COMPILE=aarch64-linux-gnu- \
                 CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
@@ -332,12 +444,12 @@ CompileProtonClangKernel(){
     fi
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
-    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/${ImgName} ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
-    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    cp -af $KernelPath/out/arch/$ARCH/boot/${ImgName} $AnyKernelPath
     KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$GetBD][$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${ClangType}</code>"
@@ -348,7 +460,7 @@ CompileProtonClangKernel(){
     fi
 }
 
-CompileProtonBClangKernel(){
+CompileProton2ClangKernel(){
     cd "${KernelPath}"
     SendInfoLink
     BUILD_START=$(date +"%s")
@@ -357,11 +469,11 @@ CompileProtonBClangKernel(){
         MAKE+=(
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                PATH=${ClangPath}/bin:/usr/bin:${PATH} \
                 LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
                 CC=clang \
-                CROSS_COMPILE=$for64- \
-                CROSS_COMPILE_ARM32=$for32- \
+                CROSS_COMPILE=aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
                 AR=llvm-ar \
                 NM=llvm-nm \
                 OBJCOPY=llvm-objcopy \
@@ -372,11 +484,10 @@ CompileProtonBClangKernel(){
         make    -j${TotalCores}  O=out \
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                PATH=${ClangPath}/bin:/usr/bin:${PATH} \
                 LD_LIBRARY_PATH="${ClangPath}/lib64:${LD_LIBRARY_PATH}" \
-                CC=clang \
-                CROSS_COMPILE=$for64- \
-                CROSS_COMPILE_ARM32=$for32- \
+                CROSS_COMPILE=aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
                 AR=llvm-ar \
                 NM=llvm-nm \
                 OBJCOPY=llvm-objcopy \
@@ -387,10 +498,11 @@ CompileProtonBClangKernel(){
         MAKE+=(
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
                 CC=clang \
-                CROSS_COMPILE=$for64- \
-                CROSS_COMPILE_ARM32=$for32- \
+                CROSS_COMPILE=aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
                 AR=llvm-ar \
                 NM=llvm-nm \
                 OBJCOPY=llvm-objcopy \
@@ -401,10 +513,11 @@ CompileProtonBClangKernel(){
         make    -j${TotalCores}  O=out \
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=${ClangPath}/bin:${GCCaPath}/bin:${GCCbPath}/bin:/usr/bin:${PATH} \
+                PATH=${ClangPath}/bin:/usr/bin:${PATH} \
+                LD_LIBRARY_PATH="${ClangPath}/lib:${LD_LIBRARY_PATH}" \
                 CC=clang \
-                CROSS_COMPILE=$for64- \
-                CROSS_COMPILE_ARM32=$for32- \
+                CROSS_COMPILE=aarch64-linux-gnu- \
+                CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
                 AR=llvm-ar \
                 NM=llvm-nm \
                 OBJCOPY=llvm-objcopy \
@@ -414,12 +527,12 @@ CompileProtonBClangKernel(){
     fi
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
-    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/${ImgName} ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
-    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    cp -af $KernelPath/out/arch/$ARCH/boot/${ImgName} $AnyKernelPath
     KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$GetBD][$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${ClangType}</code>"
@@ -448,12 +561,12 @@ CompileLlvmKernel(){
             LLVM=1
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
-    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
+    if [[ ! -e $KernelPath/out/arch/$ARCH/boot/${ImgName} ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
         exit 1
     fi
-    cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
+    cp -af $KernelPath/out/arch/$ARCH/boot/${ImgName} $AnyKernelPath
     KName=$(cat "${KernelPath}/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
     ZipName="[$GetBD][$TypeBuilder]${TypeBuildTag}[$CODENAME]$KVer-$KName-$HeadCommitId.zip"
     CompilerStatus="- <code>${ClangType}</code>"
@@ -479,8 +592,10 @@ MakeZip(){
         cp -af $SpectrumPath/$spectrumFile init.spectrum.rc && sed -i "s/persist.spectrum.kernel.*/persist.spectrum.kernel $KName/g" init.spectrum.rc
     fi
     cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by ZyCromerZ/g" anykernel.sh
-    if [ "$CODENAME" == "Vayu" ];then
-        cp -af "$KernelPath/out/arch/$ARCH/boot/dtbo.img" "$AnyKernelPath/dtbo.img"
+    [[ "$UseDtbo" == "y" ]] && cp -af "$KernelPath/out/arch/$ARCH/boot/dtbo.img" "$AnyKernelPath/dtbo.img"
+    if [[ "$UseDtb" == "y" ]];then
+        ( find "$KernelPath/out/arch/$ARCH/boot/dts/qcom" -name "*.dtb" -exec cat {} + > $AnykernelPath/dtb )
+        [[ ! -e "$AnykernelPath/dtb" ]] && [[ ! -z "$BASE_DTB_NAME" ]] && cp $KernelPath/out/arch/$ARCH/boot/dts/qcom/$BASE_DTB_NAME $AnykernelPath/dtb
     fi
     # remove placeholder file
     for asu in `find . -name placeholder`
@@ -535,13 +650,11 @@ UploadKernel(){
         rm -rf "$KDpath"
     fi
     
-    # always remove compiled dtb and kernel zip
-    rm -rf "$KernelPath/out/arch/$ARCH/boot/Image.gz-dtb" && getInfo "remove Image.gz-dtb file done"
-    rm -rf "${KernelFiles}" && getInfo "remove kernel zip files done"
-
-    if [ "$CODENAME" == "Vayu" ];then
-        rm -rf $AnyKernelPath/dtbo.img && getInfo "remove dtbo.img file done"
-    fi
+    # always remove after push kernel zip
+    for FIleName in Image Image-dtb Image.gz Image.gz-dtb dtb dtb.img dt dt.img dtbo dtbo.img init.spectrum.rc
+    do
+        rm -rf $AnyKernelPath/$FIleName
+    done
     
 }
 
