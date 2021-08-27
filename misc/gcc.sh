@@ -7,6 +7,7 @@ CloneCompiledGcc(){
     rm -rf ${GCCaPath}/aarch64-linux-gnu ${GCCbPath}/arm-linux-gnueabi
     mkdir "${GCCaPath}"
     mkdir "${GCCbPath}"
+    rm -rf ${GCCaPath}/* ${GCCbPath}/*
     if [ ! -e "${MainPath}/arm-linux-gnueabi-10.x-gnu-20210311.tar.gz" ];then
         wget -q https://gcc-drive.zyc-files.workers.dev/0:/arm-linux-gnueabi-10.x-gnu-20210311.tar.gz
     fi
@@ -26,7 +27,7 @@ CloneCompiledGccEleven(){
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     GCCaPath="$MainZipGCCaPath"
     GCCbPath="$MainZipGCCbPath"
-    rm -rf ${GCCaPath}/aarch64-zyc-linux-gnu ${GCCbPath}/arm-zyc-linux-gnueabi
+    rm -rf ${GCCaPath}/* ${GCCbPath}/*
     mkdir "${GCCaPath}"
     mkdir "${GCCbPath}"
     if [ ! -e "${MainPath}/arm-zyc-linux-gnueabi-11.x-gnu-20210822.tar.gz" ];then
@@ -78,6 +79,7 @@ CloneGccten(){
     GCCbPath="$MainZipGCCbPath"
     mkdir "${GCCaPath}"
     mkdir "${GCCbPath}"
+    rm -rf ${GCCaPath}/* ${GCCbPath}/*
     if [ ! -e "${MainPath}/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz" ];then
         wget -q https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz
         tar -xf gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz -C $GCCbPath
@@ -97,7 +99,7 @@ CloneCompiledGccTwelve(){
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     GCCaPath="$MainZipGCCaPath"
     GCCbPath="$MainZipGCCbPath"
-    rm -rf ${GCCaPath}/aarch64-zyc-linux-gnu ${GCCbPath}/arm-zyc-linux-gnueabi
+    rm -rf ${GCCaPath}/* ${GCCbPath}/*
     mkdir "${GCCaPath}"
     mkdir "${GCCbPath}"
     if [ ! -e "${MainPath}/arm-zyc-linux-gnueabi-12.x-gnu-20210808.tar.gz" ];then

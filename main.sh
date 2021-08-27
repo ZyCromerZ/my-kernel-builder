@@ -1,6 +1,7 @@
 #! /bin/bash
 MainPath="$(pwd)"
-ClangPath="${MainPath}/Clang"
+MainClangPath="${MainPath}/Clang"
+MainClangZipPath="${MainPath}/Clang-zip"
 MainGCCaPath="${MainPath}/GCC64"
 MainGCCbPath="${MainPath}/GCC32"
 MainZipGCCaPath="${MainPath}/GCC64-zip"

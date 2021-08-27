@@ -1,6 +1,7 @@
 #! /bin/bash
 
 CloneGugelClang(){
+    ClangPath=${MainClangPath}
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     if [ ! -d "${ClangPath}" ];then
         git clone https://github.com/ZyCromerZ/google-clang -b 9.0.4-r353983d "${ClangPath}" --depth=1
@@ -15,7 +16,21 @@ CloneGugelClang(){
     ClangType="$(${ClangPath}/bin/clang --version | head -n 1)"
 }
 
+CloneElevenGugelClang(){
+    ClangPath=${MainClangZipPath}
+    [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
+    mkdir $ClangPath
+    rm -rf $ClangPath/*
+    if [ ! -e "${MainPath}/clang-r428724.tar.gz" ];then
+        wget -q  https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/master/clang-r428724.tar.gz -O "clang-r428724.tar.gz"
+    fi
+    tar -xf clang-r428724.tar.gz -C $ClangPath
+    TypeBuilder="CLANG"
+    ClangType="$(${ClangPath}/bin/clang --version | head -n 1)"
+}
+
 CloneOldDTCClang(){
+    ClangPath=${MainClangPath}
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     if [ ! -d "${ClangPath}" ];then
         git clone https://github.com/nibaji/DragonTC-8.0 -b master "${ClangPath}" --depth=1
@@ -31,6 +46,7 @@ CloneOldDTCClang(){
 }
 
 CloneDTCClang(){
+    ClangPath=${MainClangPath}
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     if [ ! -d "${ClangPath}" ];then
         git clone https://github.com/NusantaraDevs/DragonTC -b 10.0 "${ClangPath}" --depth=1
@@ -46,6 +62,7 @@ CloneDTCClang(){
 }
 
 CloneProtonClang(){
+    ClangPath=${MainClangPath}
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     if [ ! -d "${ClangPath}" ];then
         git clone https://github.com/kdrag0n/proton-clang -b master "${ClangPath}" --depth=1
@@ -61,6 +78,7 @@ CloneProtonClang(){
 }
 
 CloneSdClang(){
+    ClangPath=${MainClangPath}
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     if [ ! -d "${ClangPath}" ];then
         git clone https://github.com/ThankYouMario/proprietary_vendor_qcom_sdclang -b ruby-12 "${ClangPath}" --depth=1
