@@ -14,11 +14,11 @@ TypeBuildTag="[Stable]"
 
 CloneKernel "--depth=1"
 # CloneGCCOld && CloneGugelClang
-# CompileClangKernel && CleanOut
 CloneProtonClang
-CompileProtonClangKernel && CleanOut
-# CloneCompiledGccTwelve
 CloneCompiledGccEleven
+# CompileProtonClangKernel && CleanOut
+CompileClangKernel && CleanOut
+# CloneCompiledGccTwelve
 # CloneSdClang
 # CompileClangKernel && CleanOut
 CloneDTCClang
