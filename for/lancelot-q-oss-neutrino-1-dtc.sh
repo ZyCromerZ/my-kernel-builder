@@ -10,7 +10,7 @@ TypeBuildTag="[STABLE]"
 
 CloneKernel
 CloneCompiledGccTwelve
-CloneOldDTCClang && PullLto
+CloneDTCClang && PullLto
 CompileClangKernel && PullLtoALmk
 CompileClangKernel && PullLtoSlmk
 CompileClangKernel && CleanOut

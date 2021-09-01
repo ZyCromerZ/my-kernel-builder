@@ -9,7 +9,7 @@ TypeBuildTag="[TEST][B]"
 
 CloneKernel
 CloneCompiledGccTwelve 
-CloneOldDTCClang && PullLtoSlmk
+CloneDTCClang && PullLtoSlmk
 CompileClangKernel && CleanOut
 
 
