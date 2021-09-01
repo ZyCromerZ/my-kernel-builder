@@ -9,7 +9,7 @@ doSFUp=$FolderUp
 TypeBuildTag="[STABLE]"
 
 CloneKernel
-CloneCompiledGccTwelve
+CloneCompiledGccEleven
 CloneProtonClang && PullLto
 CompileClangKernel && PullLtoALmk
 CompileClangKernel && PullLtoSlmk

@@ -17,7 +17,7 @@ CloneKernel "--depth=1"
 # CompileClangKernel && CleanOut
 # CloneProtonClang
 # CompileProtonClangKernel && CleanOut
-# CloneCompiledGccTwelve
+# CloneCompiledGccEleven
 CloneCompiledGccEleven
 # CloneSdClang
 # CompileClangKernel && CleanOut

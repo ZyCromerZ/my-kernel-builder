@@ -8,7 +8,7 @@ FolderUp="shared-file"
 TypeBuildTag="[TEST][B]"
 
 CloneKernel
-CloneCompiledGccTwelve 
+CloneCompiledGccEleven 
 CloneDTCClang && PullLtoSlmk
 CompileClangKernel && CleanOut
 

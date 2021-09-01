@@ -10,7 +10,7 @@ doOsdnUp=$FolderUp
 TypeBuildTag="[STOCK][ThinLTO]"
 
 CloneKernel "--depth=1"
-CloneCompiledGccTwelve
+CloneCompiledGccEleven
 CloneProtonClang
 CompileClangKernel
 

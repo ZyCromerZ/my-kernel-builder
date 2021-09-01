@@ -18,7 +18,7 @@ CloneProtonClang
 CloneCompiledGccEleven
 # CompileProtonClangKernel && CleanOut
 CompileClangKernel && CleanOut
-# CloneCompiledGccTwelve
+# CloneCompiledGccEleven
 # CloneSdClang
 # CompileClangKernel && CleanOut
 CloneDTCClang
