@@ -11,7 +11,7 @@ TypeBuildTag="[STOCK][ThinLTO]"
 
 CloneKernel "--depth=1"
 CloneCompiledGccTwelve
-CloneElevenGugelClang
+CloneProtonClang
 CompileClangKernel
 
 # cleanup stuff after done
