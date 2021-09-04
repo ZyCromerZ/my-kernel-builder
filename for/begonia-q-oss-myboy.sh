@@ -13,10 +13,10 @@ CloneKernel
 # CloneCompiledGccEleven
 CloneCompiledGccEleven
 # CloneElevenGugelClang
-# CloneDTCClang
+CloneDTCClang
 PullLtoSlmk
 # CompileClangKernel && CleanOut
-CloneElevenGugelClang
+# CloneElevenGugelClang
 CompileClangKernel && CleanOut
 # PullSlmk
 # CompileGccKernel && CleanOut
