@@ -30,16 +30,16 @@ CloneCompiledGccEleven(){
     rm -rf ${GCCaPath}/* ${GCCbPath}/*
     mkdir "${GCCaPath}"
     mkdir "${GCCbPath}"
-    if [ ! -e "${MainPath}/arm-zyc-linux-gnueabi-11.x-gnu-20210822.tar.gz" ];then
-        wget -q  https://github.com/ZyCromerZ/compiled-gcc/releases/download/varm-zyc-linux-gnueabi-11.x-gnu-20210822/arm-zyc-linux-gnueabi-11.x-gnu-20210822.tar.gz
+    if [ ! -e "${MainPath}/arm-zyc-linux-gnueabi-11.x-gnu-20210905.tar.gz" ];then
+        wget -q  https://github.com/ZyCromerZ/compiled-gcc/releases/download/varm-zyc-linux-gnueabi-11.x-gnu-20210905/arm-zyc-linux-gnueabi-11.x-gnu-20210905.tar.gz
     fi
-    tar -xf arm-zyc-linux-gnueabi-11.x-gnu-20210822.tar.gz -C $GCCbPath
+    tar -xf arm-zyc-linux-gnueabi-11.x-gnu-20210905.tar.gz -C $GCCbPath
     GCCbPath="${GCCbPath}/arm-zyc-linux-gnueabi"
     for32=arm-zyc-linux-gnueabi
-    if [ ! -e "${MainPath}/aarch64-zyc-linux-gnu-11.x-gnu-20210822.tar.gz" ];then
-        wget -q https://github.com/ZyCromerZ/compiled-gcc/releases/download/vaarch64-zyc-linux-gnu-11.x-gnu-20210822/aarch64-zyc-linux-gnu-11.x-gnu-20210822.tar.gz
+    if [ ! -e "${MainPath}/aarch64-zyc-linux-gnu-11.x-gnu-20210905.tar.gz" ];then
+        wget -q https://github.com/ZyCromerZ/compiled-gcc/releases/download/vaarch64-zyc-linux-gnu-11.x-gnu-20210905/aarch64-zyc-linux-gnu-11.x-gnu-20210905.tar.gz
     fi
-    tar -xf aarch64-zyc-linux-gnu-11.x-gnu-20210822.tar.gz -C $GCCaPath
+    tar -xf aarch64-zyc-linux-gnu-11.x-gnu-20210905.tar.gz -C $GCCaPath
     GCCaPath="${GCCaPath}/aarch64-zyc-linux-gnu"
     for64=aarch64-zyc-linux-gnu
     GetGccVersion
