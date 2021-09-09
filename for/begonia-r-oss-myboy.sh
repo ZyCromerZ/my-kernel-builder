@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="r-oss-upstream"
+KernelBranch="r-oss"
 
 IncludeFiles "${MainPath}/device/begonia-r-oss.sh"
 CustomUploader="Y"
@@ -9,7 +9,7 @@ spectrumFile="bego-on-p.rc"
 FolderUp="shared-file"
 TypeBuildTag="[R-OSS]"
 
-CloneKernel
+CloneKernel "--depth=1"
 # CloneCompiledGccEleven
 CloneCompiledGccEleven
 # CloneElevenGugelClang
