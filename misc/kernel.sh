@@ -593,8 +593,8 @@ MakeZip(){
     cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by ZyCromerZ/g" anykernel.sh
     [[ "$UseDtbo" == "y" ]] && cp -af "$KernelPath/out/arch/$ARCH/boot/dtbo.img" "$AnyKernelPath/dtbo.img"
     if [[ "$UseDtb" == "y" ]];then
-        ( find "$KernelPath/out/arch/$ARCH/boot/dts/qcom" -name "*.dtb" -exec cat {} + > $AnyKernelPath/dtb )
-        [[ ! -e "$AnyKernelPath/dtb" ]] && [[ ! -z "$BASE_DTB_NAME" ]] && cp $KernelPath/out/arch/$ARCH/boot/dts/qcom/$BASE_DTB_NAME $AnyKernelPath/dtb
+        ( find "$KernelPath/out/arch/$ARCH/boot/dts/$AfterDTS" -name "*.dtb" -exec cat {} + > $AnyKernelPath/dtb )
+        [[ ! -e "$AnyKernelPath/dtb" ]] && [[ ! -z "$BASE_DTB_NAME" ]] && cp $KernelPath/out/arch/$ARCH/boot/dts/$AfterDTS/$BASE_DTB_NAME $AnyKernelPath/dtb
     fi
     # remove placeholder file
     for asu in `find . -name placeholder`
