@@ -15,7 +15,7 @@ CloneCompiledGccEleven
 # CloneElevenGugelClang
 CloneDTCClang
 # CompileClangKernel && CleanOut
-# CloneElevenGugelClang
+# CloneProtonClang
 CompileClangKernel && CleanOut
 # PullSlmk
 # CompileGccKernel && CleanOut

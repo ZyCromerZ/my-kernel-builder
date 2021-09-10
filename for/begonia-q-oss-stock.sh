@@ -15,7 +15,7 @@ KernelDownloader="Y"
 KDType="stock-memeui-clang"
 
 CloneKernel "--depth=1"
-CloneCompiledGccEleven && CloneElevenGugelClang
+CloneCompiledGccEleven && CloneProtonClang
 CompileClangKernel && CleanOut
 
 KDType='stock-memeui-dtc'
