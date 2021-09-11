@@ -4,7 +4,7 @@
 # CustomUploader="Y"
 # IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 # FolderUp="shared-file"
-# TypeBuildTag="[NON-CFW][TEST]"
+# TypeBuildTag="[Q-OSS][TEST]"
 
 # CloneKernel "--depth=1"
 # CloneGCCOld

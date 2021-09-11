@@ -7,7 +7,7 @@ UseSpectrum="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 FolderUp="begonia-memeui-neutrino"
 ExFolder="LY"
-TypeBuildTag="[NON-CFW][Stock-LMK]"
+TypeBuildTag="[Q-OSS][Stock-LMK]"
 
 # misc
 spectrumFile="bego-on-p.rc"

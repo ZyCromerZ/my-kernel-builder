@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="20210205/neutrino-3"
+KernelBranch="20210205/neutrino-2"
 
 IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"
@@ -12,8 +12,8 @@ TypeBuildTag="[NON-CFW][Stock-LMK]"
 CloneKernel
 # CloneCompiledGccEleven
 CloneCompiledGccEleven
-# CloneProtonClang
-CloneDTCClang
+CloneProtonClang
+# CloneDTCClang
 PullLtoSlmk
 # CompileClangKernel && CleanOut
 # CloneProtonClang

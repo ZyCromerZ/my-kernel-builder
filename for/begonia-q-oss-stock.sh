@@ -5,7 +5,7 @@ IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 FolderUp="begonia-memeui-Stock"
-TypeBuildTag="[NON-CFW]"
+TypeBuildTag="[Q-OSS]"
 
 # misc
 doOsdnUp=$FolderUp

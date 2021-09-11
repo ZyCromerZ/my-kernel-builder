@@ -8,7 +8,7 @@ TypeBuild="Stable"
 DEFFCONFIG="begonia_user_defconfig"
 GetBD=$(date +"%m%d")
 GetCBD=$(date +"%Y-%m-%d")
-TypeBuildTag="[NON-CFW]"
+TypeBuildTag="[Q-OSS]"
 FolderUp="begonia"
 ExFolder=""
 AnyKernelBranch="master-begonia-q-oss"
@@ -20,7 +20,7 @@ pullALmk(){
     git fetch origin 20210205/main-ALMK2
     git pull --no-commit origin 20210205/main-ALMK2
     git commit -s -m 'Pull branch 20210205/main-ALMK2'
-    TypeBuildTag="[NON-CFW][ALMK]"
+    TypeBuildTag="[Q-OSS][ALMK]"
 }
 
 pullSlmk(){
@@ -29,7 +29,7 @@ pullSlmk(){
     git fetch origin 20210205/main-SLMK2
     git pull --no-commit origin 20210205/main-SLMK2
     git commit -s -m 'Pull branch 20210205/main-SLMK2'
-    TypeBuildTag="[NON-CFW][SLMK]"
+    TypeBuildTag="[Q-OSS][SLMK]"
 }
 
 PullLto(){
@@ -38,7 +38,7 @@ PullLto(){
     git fetch origin 20210205/main-LTO
     git pull --no-commit origin 20210205/main-LTO
     git commit -s -m 'Pull branch 20210205/main-LTO'
-    TypeBuildTag="[NON-CFW][Stock-LMK][Thin-LTO]"
+    TypeBuildTag="[Q-OSS][Stock-LMK][Thin-LTO]"
 }
 
 PullLtoALmk(){
@@ -47,7 +47,7 @@ PullLtoALmk(){
     git fetch origin 20210205/main-ALMK2-LTO
     git pull --no-commit origin 20210205/main-ALMK2-LTO
     git commit -s -m 'Pull branch 20210205/main-ALMK2-LTO'
-    TypeBuildTag="[NON-CFW][ALMK][Thin-LTO]"
+    TypeBuildTag="[Q-OSS][ALMK][Thin-LTO]"
 }
 
 PullLtoSlmk(){
@@ -56,5 +56,5 @@ PullLtoSlmk(){
     git fetch origin 20210205/main-SLMK2-LTO
     git pull --no-commit origin 20210205/main-SLMK2-LTO
     git commit -s -m 'Pull branch 20210205/main-SLMK2-LTO'
-    TypeBuildTag="[NON-CFW][SLMK][Thin-LTO]"
+    TypeBuildTag="[Q-OSS][SLMK][Thin-LTO]"
 }
