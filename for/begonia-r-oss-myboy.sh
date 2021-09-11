@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="r-oss"
+KernelBranch="r-oss-mod"
 
 IncludeFiles "${MainPath}/device/begonia-r-oss.sh"
 CustomUploader="Y"
@@ -13,9 +13,9 @@ CloneKernel "--depth=1"
 # CloneCompiledGccEleven
 CloneCompiledGccEleven
 # CloneElevenGugelClang
-CloneDTCClang
+# CloneDTCClang
 # CompileClangKernel && CleanOut
-# CloneProtonClang
+CloneProtonClang
 CompileClangKernel && CleanOut
 # PullSlmk
 # CompileGccKernel && CleanOut
