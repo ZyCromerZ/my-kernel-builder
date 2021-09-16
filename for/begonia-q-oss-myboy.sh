@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="20210205/neutrino-2"
+KernelBranch="q-oss-upstream"
 
 IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"
@@ -14,7 +14,7 @@ CloneKernel
 CloneCompiledGccEleven
 CloneProtonClang
 # CloneDTCClang
-PullLtoSlmk
+# PullLtoSlmk
 # CompileClangKernel && CleanOut
 # CloneProtonClang
 CompileClangKernel && CleanOut
