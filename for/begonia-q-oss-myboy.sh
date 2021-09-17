@@ -7,12 +7,13 @@ UseSpectrum="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
 spectrumFile="bego-on-p.rc"
 FolderUp="shared-file"
-TypeBuildTag="[NON-CFW][Stock-LMK]"
+TypeBuildTag="[Q-OSS][Stock-LMK]"
 
 CloneKernel
-# CloneCompiledGccEleven
 CloneCompiledGccEleven
 CloneThirteenGugelClang
+# CloneGCCOld
+# CloneOldDTCClang
 # CloneDTCClang
 # PullLtoSlmk
 # CompileClangKernel && CleanOut
