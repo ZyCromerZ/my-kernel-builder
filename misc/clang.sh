@@ -16,15 +16,15 @@ CloneGugelClang(){
     ClangType="$(${ClangPath}/bin/clang --version | head -n 1)"
 }
 
-CloneElevenGugelClang(){
+CloneThirteenGugelClang(){
     ClangPath=${MainClangZipPath}
     [[ "$(pwd)" != "${MainPath}" ]] && cd "${MainPath}"
     mkdir $ClangPath
     rm -rf $ClangPath/*
-    if [ ! -e "${MainPath}/clang-r428724.tar.gz" ];then
-        wget -q  https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/master/clang-r428724.tar.gz -O "clang-r428724.tar.gz"
+    if [ ! -e "${MainPath}/clang-r433403.tar.gz" ];then
+        wget -q  https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/master/clang-r433403.tar.gz -O "clang-r433403.tar.gz"
     fi
-    tar -xf clang-r428724.tar.gz -C $ClangPath
+    tar -xf clang-r433403.tar.gz -C $ClangPath
     TypeBuilder="CLANG"
     ClangType="$(${ClangPath}/bin/clang --version | head -n 1)"
 }

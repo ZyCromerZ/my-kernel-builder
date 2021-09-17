@@ -12,7 +12,7 @@ TypeBuildTag="[R-OSS]"
 CloneKernel "--depth=1"
 # CloneCompiledGccEleven
 CloneCompiledGccEleven
-# CloneElevenGugelClang
+# CloneThirteenGugelClang
 # CloneDTCClang
 # CompileClangKernel && CleanOut
 CloneProtonClang
