@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="r-oss"
+KernelBranch="base-r-oss"
 
 IncludeFiles "${MainPath}/device/merlin-r-oss.sh"
 CustomUploader="Y"
