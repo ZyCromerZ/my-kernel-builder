@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="q-oss-upstream"
+KernelBranch="q-oss-base"
 
 IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"
@@ -10,17 +10,18 @@ FolderUp="shared-file"
 TypeBuildTag="[Q-OSS][Stock-LMK]"
 
 CloneKernel
-CloneCompiledGccEleven
-CloneThirteenGugelClang
+CloneCompiledGccTwelve
+# CloneThirteenGugelClang
 # CloneGCCOld
 # CloneOldDTCClang
 # PullLtoSlmk
 # CompileClangKernel && CleanOut
-# CloneProtonClang
+CloneProtonClang
 CompileClangKernel && CleanOut
 CloneDTCClang
 # PullSlmk
-CompileGccKernel && CleanOut
+CompileClangKernel && CleanOut
+# CompileGccKernel && CleanOut
 
 # cleanup stuff after done
 cd "${MainPath}"

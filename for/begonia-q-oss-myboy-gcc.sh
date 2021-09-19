@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="q-oss-upstream"
+KernelBranch="q-oss-base"
 
 IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"
