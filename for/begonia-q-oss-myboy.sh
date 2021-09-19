@@ -14,13 +14,13 @@ CloneCompiledGccEleven
 CloneThirteenGugelClang
 # CloneGCCOld
 # CloneOldDTCClang
-# CloneDTCClang
 # PullLtoSlmk
 # CompileClangKernel && CleanOut
 # CloneProtonClang
 CompileClangKernel && CleanOut
+CloneDTCClang
 # PullSlmk
-# CompileGccKernel && CleanOut
+CompileGccKernel && CleanOut
 
 # cleanup stuff after done
 cd "${MainPath}"
