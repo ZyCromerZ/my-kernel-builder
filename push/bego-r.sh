@@ -4,7 +4,7 @@ git checkout master
 if [ ! -z "$2" ];then
     ListBranch="$2"
 else
-    ListBranch="begonia-r-oss-myboy"
+    ListBranch="begonia-r-oss-cst begonia-r-oss-stock"
 fi
 
 for Branch in $ListBranch
@@ -18,7 +18,7 @@ done
 if [ ! -z "$1" ];then
     repo="$1"
 else
-    repo="zero"
+    repo="neet"
 fi
 git push -f "$repo" $ListBranch
 

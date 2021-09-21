@@ -1,28 +1,28 @@
 #! /bin/bash
-KernelBranch="q-oss-base"
+KernelBranch="r-oss"
 
-IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
+IncludeFiles "${MainPath}/device/begonia-r-oss.sh"
 CustomUploader="Y"
-UseSpectrum="Y"
+# UseSpectrum="Y"
 IncludeFiles "${MainPath}/misc/kernel.sh" "https://${GIT_SECRET}@github.com/${GIT_USERNAME}/begonia_kernel"
-spectrumFile="bego-on-p.rc"
-FolderUp="shared-file"
-TypeBuildTag="[Q-OSS][Stock-LMK]"
+# spectrumFile="None"
+FolderUp="begonia"
+TypeBuildTag="[R-OSS][Stable]"
 
 CloneKernel
-# CloneCompiledGccEleven
 CloneCompiledGccTwelve
-CompileGccKernel
 # CloneThirteenGugelClang
 # CloneGCCOld
 # CloneOldDTCClang
 # PullLtoSlmk
 # CompileClangKernel && CleanOut
-# CloneProtonClang
-# CompileClangKernel && CleanOut
-# CloneDTCClang
+CloneProtonClang
+CompileClangKernel && CleanOut
+CloneDTCClang
 # PullSlmk
+CompileClangKernel && CleanOut
 # CompileGccKernel && CleanOut
+CompileGccKernel
 
 # cleanup stuff after done
 cd "${MainPath}"
