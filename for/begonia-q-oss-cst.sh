@@ -21,8 +21,8 @@ CompileClangKernel && CleanOut
 CloneDTCClang
 # PullSlmk
 CompileClangKernel && CleanOut
-# CompileGccKernel && CleanOut
-CompileGccKernel
+CompileGccKernel && CleanOut
+# CompileGccKernel
 
 # cleanup stuff after done
 cd "${MainPath}"

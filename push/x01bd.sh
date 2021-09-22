@@ -30,3 +30,5 @@ else
 fi
 
 git checkout master
+
+git branch -D $ListBranch

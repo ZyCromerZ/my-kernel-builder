@@ -40,6 +40,8 @@ git push -f "$repo" $ListBranch
 git checkout master
 git branch -D master-temp
 
+git branch -D $ListBranch
+
 # repo : do-tercydux-tiris-clang
 # repo : do-tercydux-santuy-clang
 # repo : do-tercydux-hareudang-clang

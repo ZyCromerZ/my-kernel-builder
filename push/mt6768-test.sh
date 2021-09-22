@@ -23,3 +23,5 @@ fi
 git push -f "$repo" $ListBranch
 
 git checkout master
+
+git branch -D $ListBranch
